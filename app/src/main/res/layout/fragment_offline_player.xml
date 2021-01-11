@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".OfflinePlayer">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/score_board"
+        android:textSize="25sp"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+        <TextView
+            android:id="@+id/offline_player_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="first"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/offline_player_first_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="first"
+            android:textSize="20sp"
+            android:layout_marginEnd="200dp"
+            />
+        <TextView
+            android:id="@+id/offline_player_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="second"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/offline_player_second_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="first"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_first"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_second"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_third"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_fourth"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_fifth"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_sixth"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_seventh"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_eighth"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_ninth"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/try_again"
+        />
+
+</LinearLayout>
