@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SecondFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.fragmentOfflinePlayer"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.OfflinePlayer"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_offline_player">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.SecondFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

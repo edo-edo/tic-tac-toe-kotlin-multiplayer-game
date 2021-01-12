@@ -10,4 +10,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="score_board">Score board</string>
     <string name="try_again">Try again</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="multiplayer">MULTIPLAYER</string>
+    <string name="themes">THEMES</string>
 </resources>
