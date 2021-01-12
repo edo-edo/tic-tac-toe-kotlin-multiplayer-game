@@ -3,22 +3,24 @@
     package="com.example.tic_tac_toe_kotlin_multiplayer_game">
 
     <application
+        android:name=".RootApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tictactoekotlinmultiplayergame">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar">
+        <activity android:name=".ui.StartGameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.multiPlayer.MultiPlayerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar"/>
     </application>
 
 </manifest>

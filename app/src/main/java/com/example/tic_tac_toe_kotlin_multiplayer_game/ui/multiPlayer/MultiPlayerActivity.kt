@@ -1,4 +1,4 @@
-package com.example.tic_tac_toe_kotlin_multiplayer_game
+package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -6,8 +6,9 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 
-class MainActivity : AppCompatActivity() {
+class MultiPlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
