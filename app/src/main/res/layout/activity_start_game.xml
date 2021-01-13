@@ -14,6 +14,8 @@
         android:layout_marginBottom="40dp"
         android:text="@string/new_game"
         android:textSize="29sp"
+        android:textColor="@color/purple"
+        android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +28,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/multiplayer"
         android:textSize="29sp"
+        android:backgroundTint="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_Game_Button" />
@@ -37,6 +40,8 @@
         android:layout_marginTop="40dp"
         android:text="@string/themes"
         android:textSize="29sp"
+        android:textColor="@color/green"
+        android:backgroundTint="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/multiPlayer_Button" />

@@ -3,6 +3,8 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,34 +19,38 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * A simple [Fragment] subclass is class which handle two player game on one phone.
  */
-class OfflinePlayer : Fragment() {
-    private  lateinit var imageButton: Array<Array<ImageButton>>
-    private  lateinit var   playerFirst: TextView
-    private  lateinit var playerSecond: TextView
+class OfflinePlayer : Fragment(R.layout.fragment_offline_player) {
+    private lateinit var fistPlayerName: String
+    private lateinit var secondPlayerName: String
+
+
+    private lateinit var imageButtons: Array<Array<ImageButton>>
+    private lateinit var playerFirst: TextView
+    private lateinit var playerSecond: TextView
 
     private var playerTurn: Boolean = true
     private var playerCount: Int = 0
     private var playerFirstPoints: Int = 0
     private var playerSecondPoints: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_offline_player, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle = this.arguments
+        fistPlayerName = bundle?.getString("fistPlayerName") ?: "First"
+        secondPlayerName = bundle?.getString("secondPlayerName") ?: "Second"
 
         playerFirst = view.findViewById(R.id.offline_player_first)
         playerSecond = view.findViewById(R.id.offline_player_second)
+
+        playerFirst.text = fistPlayerName
+        playerSecond.text = secondPlayerName
+
         view.findViewById<Button>(R.id.offline_try_again).setOnClickListener {
             clearBoard()
         }
 
-        imageButton = Array(3) { row ->
+        imageButtons = Array(3) { row ->
             Array(3) { column ->
                 initButton(row, column, view)
             }
@@ -86,7 +92,7 @@ class OfflinePlayer : Fragment() {
     private fun win(player: Int) {
         if (player == 1) playerFirstPoints++ else playerSecondPoints++
         view?.let {
-            Snackbar.make(it,player.toString(),Snackbar.LENGTH_LONG).show()
+            Snackbar.make(it, player.toString(), Snackbar.LENGTH_LONG).show()
         }
         updateScore()
 
@@ -94,21 +100,21 @@ class OfflinePlayer : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun updateScore() {
-        playerFirst.text = "player1: $playerFirstPoints"
-        playerSecond.text = "player2: $playerSecondPoints"
+        playerFirst.text = "$fistPlayerName: $playerFirstPoints"
+        playerSecond.text = "$secondPlayerName: $playerSecondPoints"
 
     }
 
     private fun draw() {
         view?.let {
-            Snackbar.make(it,"draw",Snackbar.LENGTH_LONG).show()
+            Snackbar.make(it, "draw", Snackbar.LENGTH_LONG).show()
         }
     }
 
-     private  fun clearBoard() {
-        for (i in 0..2){
-            for (j in 0..2){
-                imageButton[i][j].setImageResource(0)
+    private fun clearBoard() {
+        for (i in 0..2) {
+            for (j in 0..2) {
+                imageButtons[i][j].setImageResource(0)
             }
         }
         playerCount = 0
@@ -120,33 +126,33 @@ class OfflinePlayer : Fragment() {
     private fun checkForWin(): Boolean {
         val fields = Array(3) { row ->
             Array(3) { column ->
-              getField(imageButton[row][column])
+                getField(imageButtons[row][column])
             }
 
         }
-        for (i in 0..2){
-            if(
+        for (i in 0..2) {
+            if (
                 (fields[i][0] == fields[i][1]) &&
                 (fields[i][0] == fields[i][2]) &&
                 (fields[i][0] != null)
             ) return true
         }
 
-        for (i in 0..2){
-            if(
+        for (i in 0..2) {
+            if (
                 (fields[0][i] == fields[1][i]) &&
                 (fields[0][i] == fields[2][i]) &&
                 (fields[0][i] != null)
             ) return true
         }
 
-        if(
+        if (
             (fields[0][0] == fields[1][1]) &&
             (fields[0][0] == fields[2][2]) &&
             (fields[0][0] != null)
-            ) return true
+        ) return true
 
-        if(
+        if (
             (fields[0][2] == fields[1][1]) &&
             (fields[0][2] == fields[2][0]) &&
             (fields[0][2] != null)
@@ -157,11 +163,11 @@ class OfflinePlayer : Fragment() {
     }
 
     private fun getField(imageButton: ImageButton): Char? {
-        val drw:Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources,R.mipmap.toe_x,null)
-        val drwZero = ResourcesCompat.getDrawable(resources,R.mipmap.toe_o,null)
+        val drw: Drawable? = imageButton.drawable
+        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
+        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
 
-        return when(drw?.constantState){
+        return when (drw?.constantState) {
             drwCross?.constantState -> 'x'
             drwZero?.constantState -> 'o'
             else -> null
