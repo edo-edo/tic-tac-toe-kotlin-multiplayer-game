@@ -7,7 +7,7 @@
     android:background="@mipmap/background"
     tools:context=".ui.StartGameActivity">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/new_Game_Button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/multiPlayer_Button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_Game_Button" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/themes_Button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
