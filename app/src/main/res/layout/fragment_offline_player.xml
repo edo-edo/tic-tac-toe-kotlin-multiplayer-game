@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".ui.multiPlayer.OfflinePlayer">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/score_board"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/offline_player_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="first"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/offline_player_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:textStyle="bold"
+            android:text="second"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_00"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_01"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_02"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_10"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_11"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_12"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/offline_button_20"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_21"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/offline_button_22"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_button"
+            android:layout_margin="2dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/offline_try_again"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/try_again"
+        />
+
+</LinearLayout>
