@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.SecondFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.StarGameLocalMultiPlayerFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_star_game_local_multi_player">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
