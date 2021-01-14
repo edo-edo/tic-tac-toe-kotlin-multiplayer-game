@@ -3,13 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SecondFragment">
+    app:startDestination="@id/GameModeFragment">
+
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.OfflinePlayer"
-        android:label="@string/first_fragment_label"
+        android:id="@+id/GameModeFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.GameModeFragment"
+        android:label="@string/GameModeFragment"
+        tools:layout="@layout/fragment_game_mode">
+
+
+        <action
+            android:id="@+id/action_GameModeFragment_to_StarGameLocalMultiPlayerFragment"
+            app:destination="@id/StarGameLocalMultiPlayerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/StarGameLocalMultiPlayerFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local.StarGameLocalMultiPlayerFragment"
+        android:label="Star Game Local MultiPlayer Fragment"
+        tools:layout="@layout/fragment_star_game_local_multi_player">
+
+        <action
+            android:id="@+id/action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment"
+            app:destination="@id/OfflinePlayerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/OfflinePlayerFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local.OfflinePlayerFragment"
+        android:label="@string/OfflinePlayerFragment"
         tools:layout="@layout/fragment_offline_player">
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.newgame.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,12 +49,13 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.StarGameLocalMultiPlayerFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.newgame.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_star_game_local_multi_player">
+        tools:layout="@layout/fragment_second">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+
 </navigation>
