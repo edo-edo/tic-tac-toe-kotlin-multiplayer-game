@@ -18,7 +18,10 @@
 
         <EditText
             android:id="@+id/fist_player_name"
+            android:inputType="textPersonName"
             android:layout_width="200dp"
+            android:maxLines="1"
+            android:maxLength="15"
             android:layout_height="wrap_content"
             android:hint="@string/first_player"
             android:text="@string/player_1"
@@ -37,7 +40,10 @@
 
         <EditText
             android:id="@+id/second_player_name"
+            android:inputType="textPersonName"
             android:layout_width="200dp"
+            android:maxLines="1"
+            android:maxLength="15"
             android:layout_height="wrap_content"
             android:hint="@string/second_player"
             android:text="@string/player_2"
