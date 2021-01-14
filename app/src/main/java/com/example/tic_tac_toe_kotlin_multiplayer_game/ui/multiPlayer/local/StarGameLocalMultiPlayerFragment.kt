@@ -1,10 +1,8 @@
-package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
+package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.fragment.findNavController
@@ -30,7 +28,7 @@ class StarGameLocalMultiPlayerFragment : Fragment(R.layout.fragment_star_game_lo
                 bundle.putString("fistPlayerName", fistPlayerName.text.toString())
                 bundle.putString("secondPlayerName", secondPlayerName.text.toString())
 
-                findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment,bundle)
+                findNavController().navigate(R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,bundle)
             } else {
                 it.myCustomSnackbar("please fill out this fields", R.id.button_second)
             }

@@ -1,4 +1,4 @@
-package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
+package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -14,7 +14,7 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackb
 /**
  * A simple [Fragment] subclass is class which handle two player game on one phone.
  */
-class OfflinePlayer : Fragment(R.layout.fragment_offline_player) {
+class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
     private lateinit var fistPlayerName: String
     private lateinit var secondPlayerName: String
 
