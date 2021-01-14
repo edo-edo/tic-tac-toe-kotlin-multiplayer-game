@@ -1,20 +1,15 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
-import android.util.Log.d
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
-import com.google.android.material.snackbar.Snackbar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackbar
 
 /**
  * A simple [Fragment] subclass is class which handle two player game on one phone.
@@ -27,6 +22,8 @@ class OfflinePlayer : Fragment(R.layout.fragment_offline_player) {
     private lateinit var imageButtons: Array<Array<ImageButton>>
     private lateinit var playerFirst: TextView
     private lateinit var playerSecond: TextView
+    private lateinit var playerFirstScore: TextView
+    private lateinit var playerSecondScore: TextView
 
     private var playerTurn: Boolean = true
     private var playerCount: Int = 0
@@ -42,12 +39,19 @@ class OfflinePlayer : Fragment(R.layout.fragment_offline_player) {
 
         playerFirst = view.findViewById(R.id.offline_player_first)
         playerSecond = view.findViewById(R.id.offline_player_second)
+        playerFirstScore = view.findViewById(R.id.offline_player_first_score)
+        playerSecondScore = view.findViewById(R.id.offline_player_second_score)
 
         playerFirst.text = fistPlayerName
         playerSecond.text = secondPlayerName
 
         view.findViewById<Button>(R.id.offline_try_again).setOnClickListener {
             clearBoard()
+            Array(3) { row ->
+                Array(3) { column ->
+                    imageButtons[row][column].isClickable = true
+                }
+            }
         }
 
         imageButtons = Array(3) { row ->
@@ -90,25 +94,32 @@ class OfflinePlayer : Fragment(R.layout.fragment_offline_player) {
     }
 
     private fun win(player: Int) {
-        if (player == 1) playerFirstPoints++ else playerSecondPoints++
-        view?.let {
-            Snackbar.make(it, player.toString(), Snackbar.LENGTH_LONG).show()
+        val winner:String = if (player == 1) {
+            playerFirstPoints++
+            "Winner is $fistPlayerName"
+        } else {
+            playerSecondPoints++
+            "Winner is $secondPlayerName"
+        }
+        view?.myCustomSnackbar(winner, R.id.first_row_button)
+        Array(3) { row ->
+            Array(3) { column ->
+                imageButtons[row][column].isClickable = false
+            }
         }
         updateScore()
 
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateScore() {
-        playerFirst.text = "$fistPlayerName: $playerFirstPoints"
-        playerSecond.text = "$secondPlayerName: $playerSecondPoints"
+        playerFirstScore.text = playerFirstPoints.toString()
+        playerSecondScore.text = playerSecondPoints.toString()
+
 
     }
 
     private fun draw() {
-        view?.let {
-            Snackbar.make(it, "draw", Snackbar.LENGTH_LONG).show()
-        }
+        view?.myCustomSnackbar("winner is friendship", R.id.first_row_button)
     }
 
     private fun clearBoard() {

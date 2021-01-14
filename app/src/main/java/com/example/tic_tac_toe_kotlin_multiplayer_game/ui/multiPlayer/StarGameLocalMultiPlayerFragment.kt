@@ -32,7 +32,7 @@ class StarGameLocalMultiPlayerFragment : Fragment(R.layout.fragment_star_game_lo
 
                 findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment,bundle)
             } else {
-                it.myCustomSnackbar("please fill out this fields")
+                it.myCustomSnackbar("please fill out this fields", R.id.button_second)
             }
         }
     }

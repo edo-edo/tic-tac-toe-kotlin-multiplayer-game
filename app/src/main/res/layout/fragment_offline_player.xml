@@ -1,51 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".ui.multiPlayer.OfflinePlayer">
-
-    <TextView
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/score_board"
-        android:layout_marginTop="20dp"
-        android:textSize="25sp"
-        />
+        android:background="#000"
+        android:orientation="vertical">
+
+        <TableRow android:padding="5dip" android:gravity="center">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/score_board"
+                android:textColor="#0ff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/offline_player_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="first"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:id="@+id/offline_player_first_score"
+                android:enabled="false"
+                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_column="1"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:background="#fff"
+                android:text="@string/zero"
+                android:padding="5dp"
+                android:textColor="#000" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="20dp" android:layout_marginBottom="20dp"  >
+
+            <TextView
+                android:id="@+id/offline_player_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                tools:text="second"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/offline_player_second_score"
+                android:enabled="false"
+                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:background="#fff"
+                android:text="@string/zero"
+                android:padding="5dp"
+                android:textColor="#000" />
+        </TableRow>
+
+    </TableLayout>
+
 
     <LinearLayout
+        android:id="@+id/first_row_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/offline_player_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="first"
-            android:textStyle="bold"
-            android:layout_marginStart="30dp"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:id="@+id/offline_player_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:textStyle="bold"
-            tools:text="second"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         >
         <ImageButton
