@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/EmailRegisterActivityEditTextsID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/email"
+        android:inputType="text"
+        android:maxLength="128"
+        android:paddingStart="15sp"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#FFFFFF"
+        tools:ignore="RtlSymmetry,TextFields" />
+
+    <EditText
+        android:id="@+id/PasswordRegisterActivityEditTextsID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxLength="64"
+        android:textColor="#000000"
+        android:paddingStart="15sp"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+
+        android:text=""
+        android:textColorHint="#FFFFFF"
+        tools:ignore="RtlSymmetry,TextFields" />
+
+    <EditText
+        android:id="@+id/ReenteredPasswordRegisterActivityEditTextsID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:maxLength="64"
+        android:paddingStart="15sp"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#FFFFFF"
+        tools:ignore="RtlSymmetry,TextFields" />
+
+    <Button
+        android:id="@+id/RegisterButtonID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="150dp"
+        android:text="@string/register"
+        android:background="@drawable/rounded_button_notes"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/backToLogInTextViewID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:gravity="end"
+        android:paddingEnd="30sp"
+        android:text="@string/go_back_to_log_in_page"
+        android:textColor="#46FA15"
+        tools:ignore="RtlSymmetry" />
+
+
+</LinearLayout>

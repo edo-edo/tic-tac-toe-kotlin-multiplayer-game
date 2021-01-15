@@ -47,4 +47,5 @@
     <string name="title_activity_new_c_p_u_game">NewCPUGameActivity</string>
     <string name="you">You</string>
     <string name="android">Android</string>
+    <string name="LogInToOnlineGameFragment">Log In To Online Game Fragment</string>
 </resources>

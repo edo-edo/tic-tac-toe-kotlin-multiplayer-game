@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -33,23 +35,26 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
                     "please wait! before Email and Password checking",
                     Toast.LENGTH_LONG
                 ).show()
-//                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-//                    .addOnCompleteListener {
-//                        if (!it.isSuccessful) {
-//                            Toast.makeText(
-//                                context,
-//                                "Password or Email doesn't match",
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//                            //return@addOnCompleteListener
-//                        } else {
-//                            startActivity(Intent(context, LoggedInNotesActivity::class.java))
-//                        }
-//
-//                    }
-//                .addOnFailureListener {
-//                    Toast.makeText(this, "Password or Email doesn't match", Toast.LENGTH_LONG).show()
-//                }
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (!it.isSuccessful) {
+                            Toast.makeText(
+                                context,
+                                "Password or Email doesn't match",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            //return@addOnCompleteListener
+                        } else {
+                            Toast.makeText(context, "loged", Toast.LENGTH_LONG).show()
+                           // findNavController().navigate(R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,bundle)
+
+                            // startActivity(Intent(context, LoggedInNotesActivity::class.java))
+                        }
+
+                    }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Password or Email doesn't match", Toast.LENGTH_LONG).show()
+                }
             } else {
                 Toast.makeText(
                     context,
@@ -58,9 +63,10 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
                 ).show()
             }
         }
-//        findViewById<TextView>(R.id.RegisterTextViewID).setOnClickListener() {
-//            startActivity(Intent(context, RegisterInNotesActivity::class.java))
-//        }
+        findViewById<TextView>(R.id.RegisterTextViewID).setOnClickListener() {
+             findNavController().navigate(R.id.action_LogInToOnlineGameFragment_to_RegisterInToOnlineGameFragment)
+
+        }
     }
 
     companion object {
