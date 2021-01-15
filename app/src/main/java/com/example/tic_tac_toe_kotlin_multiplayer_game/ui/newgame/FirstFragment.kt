@@ -22,18 +22,11 @@ import kotlin.random.Random.Default.nextInt
  */
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
-    private lateinit var fistPlayerName: String
-    private lateinit var secondPlayerName: String
-
-
     private lateinit var imageButtons: Array<Array<ImageButton>>
-    private lateinit var playerFirst: TextView
-    private lateinit var playerSecond: TextView
-    private lateinit var playerFirstScore: TextView
-    private lateinit var playerSecondScore: TextView
+    private lateinit var youScore: TextView
+    private lateinit var androidScore: TextView
 
     private val emptyImageButtons : MutableList<ImageButton> = ArrayList()
-    private var playerTurn: Boolean = true
     private var playerCount: Int = 0
     private var playerFirstPoints: Int = 0
     private var playerSecondPoints: Int = 0
@@ -41,17 +34,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bundle = this.arguments
-        fistPlayerName = bundle?.getString("fistPlayerName") ?: "First"
-        secondPlayerName = bundle?.getString("secondPlayerName") ?: "Second"
 
-        playerFirst = view.findViewById(R.id.offline_player_first)
-        playerSecond = view.findViewById(R.id.offline_player_second)
-        playerFirstScore = view.findViewById(R.id.offline_player_first_score)
-        playerSecondScore = view.findViewById(R.id.offline_player_second_score)
+        youScore = view.findViewById(R.id.you_score)
+        androidScore = view.findViewById(R.id.android_score)
 
-        playerFirst.text = fistPlayerName
-        playerSecond.text = secondPlayerName
 
         view.findViewById<Button>(R.id.offline_try_again).setOnClickListener {
             clearBoard()
@@ -95,18 +81,20 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
             imageBtn.setImageResource(R.mipmap.toe_x)
             emptyImageButtons.remove(imageBtn)
-            Log.d("buttons", emptyImageButtons.toString())
             if (checkForWin()){
                 win(1)
+                return
             }
 
-            var index = 0
-            if (emptyImageButtons.size != 1){
-                index =  (0 until emptyImageButtons.size).random()
+            if (emptyImageButtons.size > 0){
+                val index =  (0 until emptyImageButtons.size).random()
+                emptyImageButtons[index].setImageResource(R.mipmap.toe_o)
+                emptyImageButtons.removeAt(index)
             }
-            emptyImageButtons[index].setImageResource(R.mipmap.toe_o)
+
             if (checkForWin()){
                 win(2)
+                return
             }
 
         if (playerCount == 8){
@@ -115,21 +103,18 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             playerCount += 2
         }
 
-
-//        if (checkForWin()) {
-//            if (playerTurn) win(1) else win(2)
-//        } else if (playerCount == 9) {
-//            draw()
-//        }
+        if (playerCount == 9) {
+            draw()
+        }
     }
 
     private fun win(player: Int) {
         val winner:String = if (player == 1) {
             playerFirstPoints++
-            "Winner is $fistPlayerName"
+            "You won"
         } else {
             playerSecondPoints++
-            "Winner is $secondPlayerName"
+            "Winner is Android"
         }
         view?.myCustomSnackbar(winner, R.id.first_row_button)
         Array(3) { row ->
@@ -142,8 +127,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     }
 
     private fun updateScore() {
-        playerFirstScore.text = playerFirstPoints.toString()
-        playerSecondScore.text = playerSecondPoints.toString()
+        youScore.text = playerFirstPoints.toString()
+        androidScore.text = playerSecondPoints.toString()
 
 
     }
@@ -159,8 +144,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             }
         }
         playerCount = 0
-        playerTurn = true
         emptyImageButtons.clear()
+        Array(3) { row ->
+            Array(3) { column ->
+                emptyImageButtons.add(imageButtons[row][column])
+            }
+        }
 
     }
 
