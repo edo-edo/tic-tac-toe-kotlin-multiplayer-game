@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.multiPlayer.StarGameLocalMultiPlayerFragment">
+    tools:context=".ui.multiPlayer.local.StarGameLocalMultiPlayerFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textview_second2"
@@ -18,7 +18,10 @@
 
         <EditText
             android:id="@+id/fist_player_name"
+            android:inputType="textPersonName"
             android:layout_width="200dp"
+            android:maxLines="1"
+            android:maxLength="15"
             android:layout_height="wrap_content"
             android:hint="@string/first_player"
             android:text="@string/player_1"
@@ -37,7 +40,10 @@
 
         <EditText
             android:id="@+id/second_player_name"
+            android:inputType="textPersonName"
             android:layout_width="200dp"
+            android:maxLines="1"
+            android:maxLength="15"
             android:layout_height="wrap_content"
             android:hint="@string/second_player"
             android:text="@string/player_2"
