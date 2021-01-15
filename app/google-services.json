@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "656343322060",
+    "firebase_url": "https://notesandroidapp.firebaseio.com",
+    "project_id": "notesandroidapp",
+    "storage_bucket": "notesandroidapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656343322060:android:0460c69e966ea0cbafa169",
+        "android_client_info": {
+          "package_name": "com.example.midterm.notes.ikakooo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656343322060-out3ee4o3igkedr9fbucfgd31f3va7g6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuivVqGsYpHnNzZP_3MDnAVB5pmrEOLzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656343322060-out3ee4o3igkedr9fbucfgd31f3va7g6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656343322060:android:d278f362115ab3cdafa169",
+        "android_client_info": {
+          "package_name": "com.example.tic_tac_toe_kotlin_multiplayer_game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656343322060-je99tt6io24erkpufkrm5e8fp4f6bv7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tic_tac_toe_kotlin_multiplayer_game",
+            "certificate_hash": "1daf7f3b7e3b0432fe7e6be853a967974145629a"
+          }
+        },
+        {
+          "client_id": "656343322060-out3ee4o3igkedr9fbucfgd31f3va7g6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuivVqGsYpHnNzZP_3MDnAVB5pmrEOLzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656343322060-out3ee4o3igkedr9fbucfgd31f3va7g6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
