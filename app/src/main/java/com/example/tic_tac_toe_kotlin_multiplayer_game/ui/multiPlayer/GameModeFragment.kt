@@ -29,9 +29,7 @@ class GameModeFragment : Fragment(R.layout.fragment_game_mode) {
         }
 
         view.findViewById<Button>(R.id.online_Game_Button).setOnClickListener {
-
-
-
+            findNavController().navigate(R.id.action_GameModeFragment_to_LogInToOnlineGameFragment)
         }
 
 

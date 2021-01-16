@@ -13,7 +13,7 @@
         <activity
             android:name=".ui.newgame.NewCPUGameActivity"
             android:label="@string/title_activity_new_c_p_u_game"
-            android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar"></activity>
+            android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar" />
         <activity android:name=".ui.StartGameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -24,3 +24,5 @@ fun View.myCustomSnackbar(text: String, id:Int){
 }
 
 fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
+
+fun String.isEmailValid(): Boolean = android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
