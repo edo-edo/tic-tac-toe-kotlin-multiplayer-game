@@ -2,6 +2,7 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
@@ -43,12 +44,14 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
                                 "Password or Email doesn't match",
                                 Toast.LENGTH_LONG
                             ).show()
+
+                            it.result?.user?.uid
+
                             //return@addOnCompleteListener
                         } else {
-                            Toast.makeText(context, "loged", Toast.LENGTH_LONG).show()
-                           // findNavController().navigate(R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,bundle)
-
-                            // startActivity(Intent(context, LoggedInNotesActivity::class.java))
+                            Toast.makeText(context, "Logged in", Toast.LENGTH_LONG).show()
+                            findNavController().navigate(R.id.action_LogInToOnlineGameFragment_to_StarGameOnlineMultiPlayerFragment)
+                            it.result?.user?.uid?.let { it1 -> d("sdffsdf", it1) }
                         }
 
                     }

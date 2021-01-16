@@ -48,4 +48,7 @@
     <string name="you">You</string>
     <string name="android">Android</string>
     <string name="LogInToOnlineGameFragment">Log In To Online Game Fragment</string>
+    <string name="your_name">Your Name</string>
+    <string name="StarGameOnlineMultiPlayerFragment">Star Game Online MultiPlayer Fragment</string>
+    <string name="todo">TODO</string>
 </resources>

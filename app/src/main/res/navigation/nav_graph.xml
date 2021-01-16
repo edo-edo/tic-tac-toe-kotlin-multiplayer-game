@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_LogInToOnlineGameFragment_to_RegisterInToOnlineGameFragment"
             app:destination="@id/RegisterInToOnlineGameFragment" />
+        <action
+            android:id="@+id/action_LogInToOnlineGameFragment_to_StarGameOnlineMultiPlayerFragment"
+            app:destination="@id/StarGameOnlineMultiPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegisterInToOnlineGameFragment"
@@ -63,5 +66,13 @@
             android:id="@+id/action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment"
             app:destination="@id/LogInToOnlineGameFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/StarGameOnlineMultiPlayerFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.star_game.StarGameOnlineMultiPlayerFragment"
+        android:label="@string/StarGameOnlineMultiPlayerFragment"
+        tools:layout="@layout/fragment_star_game_online_multi_player">
+
+    </fragment>
+
 
 </navigation>
