@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_GameModeFragment_to_StarGameLocalMultiPlayerFragment"
             app:destination="@id/StarGameLocalMultiPlayerFragment" />
+        <action
+            android:id="@+id/action_GameModeFragment_to_LogInToOnlineGameFragment"
+            app:destination="@id/LogInToOnlineGameFragment" />
     </fragment>
 
     <fragment
@@ -37,5 +40,39 @@
 
 
     </fragment>
+
+    <fragment
+        android:id="@+id/LogInToOnlineGameFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.LogInToOnlineGameFragment"
+        android:label="@string/LogInToOnlineGameFragment"
+        tools:layout="@layout/fragment_log_in_to_online_game">
+
+
+        <action
+            android:id="@+id/action_LogInToOnlineGameFragment_to_RegisterInToOnlineGameFragment"
+            app:destination="@id/RegisterInToOnlineGameFragment" />
+        <action
+            android:id="@+id/action_LogInToOnlineGameFragment_to_StarGameOnlineMultiPlayerFragment"
+            app:destination="@id/StarGameOnlineMultiPlayerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RegisterInToOnlineGameFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.RegisterInToOnlineGameFragment"
+        android:label="@string/LogInToOnlineGameFragment"
+        tools:layout="@layout/fragment_register_in_to_online_game">
+
+
+        <action
+            android:id="@+id/action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment"
+            app:destination="@id/LogInToOnlineGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/StarGameOnlineMultiPlayerFragment"
+        android:name="com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.star_game.StarGameOnlineMultiPlayerFragment"
+        android:label="@string/StarGameOnlineMultiPlayerFragment"
+        tools:layout="@layout/fragment_star_game_online_multi_player">
+
+    </fragment>
+
 
 </navigation>
