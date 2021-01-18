@@ -6,6 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager.Companion.getInstance
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -20,7 +21,7 @@ class StarGameOnlineMultiPlayerFragment : Fragment(R.layout.fragment_star_game_o
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        context?.let { getInstance(it)?.saveUser(PlayerModel("irakli Chkhitunidze",null,null,null)) }
         view.findViewById<RecyclerView>(R.id.online_Players_RecyclerView).apply {
             playersAdapter = OnlinePlayersListAdapter(playersList,
                 object : ItemClickListener {
@@ -35,9 +36,30 @@ class StarGameOnlineMultiPlayerFragment : Fragment(R.layout.fragment_star_game_o
             adapter = playersAdapter
         }
 
-        playersList.add(PlayerModel("fgdgfdg",true))
-        playersList.add(PlayerModel("irakli Chkhitunidze",true))
-        playersList.add(PlayerModel("Giorgi ediberidze",true))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
+        playersList.add(PlayerModel("fgdgfdg",null,null,null))
+        playersList.add(PlayerModel("null",null,"irakli Chkhitunidze",null))
+        playersList.add(PlayerModel("Giorgi ediberidze",null,null,null))
         playersAdapter.notifyDataSetChanged()
 
 
@@ -47,8 +69,8 @@ class StarGameOnlineMultiPlayerFragment : Fragment(R.layout.fragment_star_game_o
         val database = Firebase.database
         val myRef = database.getReference("Player")
 
-        myRef.setValue(PlayerModel("irakli Chkhitunidze",false))
-
+        myRef.setValue(PlayerModel("irakli Chkhitunidze",null,null,null))
+        myRef.setValue(playersList)
 
 
 
