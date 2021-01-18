@@ -87,9 +87,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             }
 
             if (emptyImageButtons.size > 0){
-                val index =  (0 until emptyImageButtons.size).random()
-                emptyImageButtons[index].setImageResource(R.mipmap.toe_o)
-                emptyImageButtons.removeAt(index)
+                val button =  emptyImageButtons.random()
+                button.setImageResource(R.mipmap.toe_o)
+                emptyImageButtons.remove(button)
             }
 
             if (checkForWin()){
