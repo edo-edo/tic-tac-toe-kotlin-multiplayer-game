@@ -51,4 +51,5 @@
     <string name="your_name">Your Name</string>
     <string name="StarGameOnlineMultiPlayerFragment">Star Game Online MultiPlayer Fragment</string>
     <string name="todo">TODO</string>
+    <string name="active_now">Active Now</string>
 </resources>

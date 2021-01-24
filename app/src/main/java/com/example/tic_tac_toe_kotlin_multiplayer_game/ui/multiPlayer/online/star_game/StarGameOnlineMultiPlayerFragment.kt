@@ -13,6 +13,7 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.toEditable
 import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager.Companion.getInstance
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -27,9 +28,28 @@ class StarGameOnlineMultiPlayerFragment :
     Fragment(R.layout.fragment_star_game_online_multi_player) {
 
     private var playersList = mutableListOf<PlayerModel>()
+    private var nonActivePlayersList = mutableListOf<PlayerModel>()
+
     private lateinit var playersAdapter: OnlinePlayersListAdapter
 
-    lateinit var auth: FirebaseAuth
+
+    private var auth = FirebaseAuth.getInstance()
+
+    // auth.currentUser?.uid
+    private val onlineUser = auth.currentUser
+    private val uID = onlineUser?.uid
+    private val currentEmail = onlineUser?.email
+
+    // Write a message to the database
+    private val database = Firebase.database
+
+    private val reference = database.reference
+
+    private val myRef = database.getReference("Players/$uID")
+    private val myRefActiveStatus = database.getReference("Players_ActiveStatus")
+
+
+    private var currentUserName: String = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,31 +57,10 @@ class StarGameOnlineMultiPlayerFragment :
         val onlinePlayerName = view.findViewById<EditText>(R.id.online_player_name)
         val saveButton = view.findViewById<Button>(R.id.save_button)
 
-        auth = FirebaseAuth.getInstance()
-        // auth.currentUser?.uid
-        val onlineUser = auth.currentUser
-        val uID = onlineUser?.uid
-        val currentEmail = onlineUser?.email
-
-        // Write a message to the database
-        val database = Firebase.database
-
-        val reference = database.reference
-
-        val myRef = database.getReference("Players/$uID")
-        val myRefActiveStatus = database.getReference("Players_ActiveStatus")
 
 
-        context?.let {
-            getInstance(it)?.saveUser(
-                PlayerModel(
-                    "irakli Chkhitunidze",
-                    null,
-                    null,
-                    null
-                )
-            )
-        }
+
+
         view.findViewById<RecyclerView>(R.id.online_Players_RecyclerView).apply {
             playersAdapter = OnlinePlayersListAdapter(playersList,
                 object : ItemClickListener {
@@ -78,34 +77,6 @@ class StarGameOnlineMultiPlayerFragment :
         activePlayers(database, view)
         fetchCurrentUser(onlinePlayerName)
         d("sjhds", activePlayers(database, view).toString())
-        // fetchCurrentPlayers()
-
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersList.add(PlayerModel("fgdgfdg", null, null, null))
-//        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-//        playersAdapter.notifyDataSetChanged()
-
 
         reference.child("Players").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -148,18 +119,22 @@ class StarGameOnlineMultiPlayerFragment :
             )
         )
 
+
     }
 
 
     private fun activePlayers(database: FirebaseDatabase, view: View) {
+        val uid = auth.currentUser!!.uid
         playersList.clear()
-
+        nonActivePlayersList.clear()
         database.reference.child("Players")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val map = (dataSnapshot.value as Map<*, *>?)
                     playersList.clear()
+                    nonActivePlayersList.clear()
                     d("fdfdvd", dataSnapshot.toString())
+
 
                     map?.forEach {
                         val player = it.value as Map<*, *>?
@@ -171,8 +146,10 @@ class StarGameOnlineMultiPlayerFragment :
 
                         d("fdfvmapcgfdfgfgdfgddwd", it.key.toString())
                         d("fdfvmapcfdfgfddwd", it.value.toString())
-                        //  d("fdfvmapcffddwd", (it.value as PlayerModel).toString())
 
+                        if (player?.get("uid") == uid || player?.get("name") == null || player["name"] == "") {
+                            return@forEach
+                        }
 
                         if (player?.get("activeStatus") == true) {
                             playersList.add(
@@ -183,11 +160,20 @@ class StarGameOnlineMultiPlayerFragment :
                                     true
                                 )
                             )
+                        } else {
+                            nonActivePlayersList.add(
+                                PlayerModel(
+                                    player?.get("uid").toString(),
+                                    player?.get("email").toString(),
+                                    player?.get("name").toString(),
+                                    false
+                                )
+                            )
                         }
 
 
                     }
-
+                    playersList.addAll(nonActivePlayersList)
                     d("dcsjhkdf", playersList.toString())
                     playersAdapter.notifyDataSetChanged()
 
@@ -202,7 +188,7 @@ class StarGameOnlineMultiPlayerFragment :
     }
 
 
-    private fun fetchCurrentUser(onlinePlayerName:EditText) {
+    private fun fetchCurrentUser(onlinePlayerName: EditText) {
         val uid = auth.currentUser!!.uid
         val ref = FirebaseDatabase.getInstance().getReference("Players/$uid")
         ref.addValueEventListener(object : ValueEventListener {
@@ -210,13 +196,33 @@ class StarGameOnlineMultiPlayerFragment :
                 val currentUser = snapshot.getValue(PlayerModel::class.java)
 
                 d("sdas", currentUser.toString())
-                 onlinePlayerName.text =currentUser?.name?.toEditable()
+                currentUserName = currentUser?.name.toString()
+                onlinePlayerName.text = currentUserName.toEditable()
+
+//                myRef.setValue(
+//                    PlayerModel(
+//                        uID,
+//                        currentEmail,
+//                        currentUserName,
+//                        true
+//                    )
+//                )
+
+                context?.let {
+                    getInstance(it)?.saveUser(
+                        PlayerModel(
+                            uID,
+                            currentEmail,
+                            currentUserName,
+                            true
+                        )
+                    )
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
 
             }
-
         })
     }
 
@@ -238,4 +244,18 @@ class StarGameOnlineMultiPlayerFragment :
 
         })
     }
+
+    override fun onPause() {
+        super.onPause()
+        val myNewRef = database.getReference("Players/$uID/activeStatus")
+        myNewRef.setValue(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+       val myNewRef = database.getReference("Players/$uID/activeStatus")
+        myNewRef.setValue(true)
+    }
+
+
 }
