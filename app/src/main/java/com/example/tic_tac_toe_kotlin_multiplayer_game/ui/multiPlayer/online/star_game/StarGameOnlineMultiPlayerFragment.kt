@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.toEditable
 import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager.Companion.getInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -73,9 +75,9 @@ class StarGameOnlineMultiPlayerFragment :
             layoutManager = LinearLayoutManager(context)
             adapter = playersAdapter
         }
-
-        activeUsers(database)
-        fetchCurrentUser()
+        activePlayers(database, view)
+        fetchCurrentUser(onlinePlayerName)
+        d("sjhds", activePlayers(database, view).toString())
         // fetchCurrentPlayers()
 
 //        playersList.add(PlayerModel("fgdgfdg", null, null, null))
@@ -101,11 +103,8 @@ class StarGameOnlineMultiPlayerFragment :
 //        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
 //        playersList.add(PlayerModel("fgdgfdg", null, null, null))
 //        playersList.add(PlayerModel("null", null, "irakli Chkhitunidze", null))
-        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
-        playersAdapter.notifyDataSetChanged()
-
-
-
+//        playersList.add(PlayerModel("Giorgi ediberidze", null, null, null))
+//        playersAdapter.notifyDataSetChanged()
 
 
         reference.child("Players").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -128,26 +127,6 @@ class StarGameOnlineMultiPlayerFragment :
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-//        val postListener = object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                 val post = (dataSnapshot.value as Map<*, *>?)
-//                // ...
-//                d("dsiuhfdsd", dataSnapshot.toString())
-//                // onlinePlayerName.text =post?.name?.toEditable()
-//
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                // Getting Post failed, log a message
-//                d("TAGdgergerg", "loadPost:onCancelled", databaseError.toException())
-//                // ...
-//            }
-//        }
-//        reference.addValueEventListener(postListener)
-
-
-        //myRef.setValue(playersList)
 
         saveButton.setOnClickListener {
 
@@ -169,52 +148,61 @@ class StarGameOnlineMultiPlayerFragment :
             )
         )
 
-        //        val fistPlayerName = view.findViewById<EditText>(R.id.fist_player_name)
-//        val secondPlayerName = view.findViewById<EditText>(R.id.second_player_name)
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            if (fistPlayerName.text.isNotEmpty() && secondPlayerName.text.isNotEmpty()) {
-//
-//                val bundle = Bundle()
-//                bundle.putString("fistPlayerName", fistPlayerName.text.toString())
-//                bundle.putString("secondPlayerName", secondPlayerName.text.toString())
-//
-//                findNavController().navigate(R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,bundle)
-//            } else {
-//                it.myCustomSnackbar("please fill out this fields", R.id.button_second)
-//            }
-//        }
     }
 
 
-    private fun activeUsers(database: FirebaseDatabase): List<PlayerModel>? {
+    private fun activePlayers(database: FirebaseDatabase, view: View) {
+        playersList.clear()
+
         database.reference.child("Players")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val map = (dataSnapshot.value as Map<*, *>?)
+                    playersList.clear()
                     d("fdfdvd", dataSnapshot.toString())
-                    map?.forEach {
-                        val model = it.value as Map<*, *>?
 
-                        d("activeStatusX", model?.get("activeStatus").toString())
-                        d("activeStatusX", model?.get("email").toString())
-                        d("activeStatusX", model?.get("name").toString())
-                        d("activeStatusX", model?.get("uid").toString())
+                    map?.forEach {
+                        val player = it.value as Map<*, *>?
+
+                        d("activeStatusX", player?.get("activeStatus").toString())
+                        d("activeStatusX", player?.get("email").toString())
+                        d("activeStatusX", player?.get("name").toString())
+                        d("activeStatusX", player?.get("uid").toString())
 
                         d("fdfvmapcgfdfgfgdfgddwd", it.key.toString())
                         d("fdfvmapcfdfgfddwd", it.value.toString())
                         //  d("fdfvmapcffddwd", (it.value as PlayerModel).toString())
+
+
+                        if (player?.get("activeStatus") == true) {
+                            playersList.add(
+                                PlayerModel(
+                                    player["uid"].toString(),
+                                    player["email"].toString(),
+                                    player["name"].toString(),
+                                    true
+                                )
+                            )
+                        }
+
+
                     }
+
+                    d("dcsjhkdf", playersList.toString())
+                    playersAdapter.notifyDataSetChanged()
 
                 }
 
-                override fun onCancelled(databaseError: DatabaseError) {}
+                override fun onCancelled(databaseError: DatabaseError) {
+                    view.snackBar("Internet Connection ERROR")
+                }
             })
 
-        return null
+
     }
 
 
-    private fun fetchCurrentUser() {
+    private fun fetchCurrentUser(onlinePlayerName:EditText) {
         val uid = auth.currentUser!!.uid
         val ref = FirebaseDatabase.getInstance().getReference("Players/$uid")
         ref.addValueEventListener(object : ValueEventListener {
@@ -222,6 +210,7 @@ class StarGameOnlineMultiPlayerFragment :
                 val currentUser = snapshot.getValue(PlayerModel::class.java)
 
                 d("sdas", currentUser.toString())
+                 onlinePlayerName.text =currentUser?.name?.toEditable()
             }
 
             override fun onCancelled(error: DatabaseError) {
