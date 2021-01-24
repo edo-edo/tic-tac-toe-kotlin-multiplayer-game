@@ -119,7 +119,58 @@ class StarGameOnlineMultiPlayerFragment :
             )
         )
 
+        view.dataUpdate()
+    }
+    private fun View.dataUpdate(){
+        val ref = FirebaseDatabase.getInstance().getReference("Players")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                activePlayers(database, this@dataUpdate)
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                d("dsfEvent",error.toString())
+            }
+        })
+
+    }
+
+    private fun fetchCurrentUser(onlinePlayerName: EditText) {
+        val uid = auth.currentUser!!.uid
+        val ref = FirebaseDatabase.getInstance().getReference("Players/$uid")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val currentUser = snapshot.getValue(PlayerModel::class.java)
+
+                d("sdas", currentUser.toString())
+                currentUserName = currentUser?.name.toString()
+                onlinePlayerName.text = currentUserName.toEditable()
+
+//                myRef.setValue(
+//                    PlayerModel(
+//                        uID,
+//                        currentEmail,
+//                        currentUserName,
+//                        true
+//                    )
+//                )
+
+                context?.let {
+                    getInstance(it)?.saveUser(
+                        PlayerModel(
+                            uID,
+                            currentEmail,
+                            currentUserName,
+                            true
+                        )
+                    )
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
 
 
@@ -188,43 +239,7 @@ class StarGameOnlineMultiPlayerFragment :
     }
 
 
-    private fun fetchCurrentUser(onlinePlayerName: EditText) {
-        val uid = auth.currentUser!!.uid
-        val ref = FirebaseDatabase.getInstance().getReference("Players/$uid")
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val currentUser = snapshot.getValue(PlayerModel::class.java)
 
-                d("sdas", currentUser.toString())
-                currentUserName = currentUser?.name.toString()
-                onlinePlayerName.text = currentUserName.toEditable()
-
-//                myRef.setValue(
-//                    PlayerModel(
-//                        uID,
-//                        currentEmail,
-//                        currentUserName,
-//                        true
-//                    )
-//                )
-
-                context?.let {
-                    getInstance(it)?.saveUser(
-                        PlayerModel(
-                            uID,
-                            currentEmail,
-                            currentUserName,
-                            true
-                        )
-                    )
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-    }
 
     private fun fetchCurrentPlayers() {
         val uid = auth.currentUser!!.uid
