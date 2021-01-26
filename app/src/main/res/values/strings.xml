@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tic-tac-toe-kotlin-multiplayer-game</string>
+    <string name="app_name">Tic Tac Toe</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -53,4 +53,5 @@
     <string name="todo">TODO</string>
     <string name="active_now">Active Now</string>
     <string name="online_players">Online Players</string>
+    <string name="log_out">Log out</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager
+import com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.star_game.PlayerModel
+import com.google.firebase.auth.FirebaseAuth
 
 //// TODO: Rename parameter arguments, choose names that match
 //// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +33,13 @@ class GameModeFragment : Fragment(R.layout.fragment_game_mode) {
         }
 
         view.findViewById<Button>(R.id.online_Game_Button).setOnClickListener {
-            findNavController().navigate(R.id.action_GameModeFragment_to_LogInToOnlineGameFragment)
+
+            Log.d("dfsfssdfgfdgfdf---->", SharedPrefManager.getInstance()?.isLoggedIn.toString())
+            if ( SharedPrefManager.getInstance()?.isLoggedIn.toString()  == "true") {
+                findNavController().navigate(R.id.action_GameModeFragment_to_StarGameOnlineMultiPlayerFragment)
+            } else {
+                findNavController().navigate(R.id.action_GameModeFragment_to_LogInToOnlineGameFragment)
+            }
         }
 
 

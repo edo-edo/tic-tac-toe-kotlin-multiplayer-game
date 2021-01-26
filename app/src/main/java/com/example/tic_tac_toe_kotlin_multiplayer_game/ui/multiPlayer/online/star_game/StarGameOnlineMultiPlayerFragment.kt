@@ -2,10 +2,14 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.st
 
 import android.os.Bundle
 import android.util.Log.d
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
@@ -54,6 +58,9 @@ class StarGameOnlineMultiPlayerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        activity?.title = ""
+
         val onlinePlayerName = view.findViewById<EditText>(R.id.online_player_name)
         val saveButton = view.findViewById<Button>(R.id.save_button)
 
@@ -120,6 +127,15 @@ class StarGameOnlineMultiPlayerFragment :
         )
 
         view.dataUpdate()
+
+        getInstance()?.saveUser(
+            PlayerModel(
+                uID,
+                currentEmail,
+                currentUserName,
+                true
+            )
+        )
     }
     private fun View.dataUpdate(){
         val ref = FirebaseDatabase.getInstance().getReference("Players")
@@ -155,16 +171,9 @@ class StarGameOnlineMultiPlayerFragment :
 //                    )
 //                )
 
-                context?.let {
-                    getInstance(it)?.saveUser(
-                        PlayerModel(
-                            uID,
-                            currentEmail,
-                            currentUserName,
-                            true
-                        )
-                    )
-                }
+
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -262,14 +271,40 @@ class StarGameOnlineMultiPlayerFragment :
 
     override fun onPause() {
         super.onPause()
-        val myNewRef = database.getReference("Players/$uID/activeStatus")
-        myNewRef.setValue(false)
+        playerActiveStatus(false)
     }
 
     override fun onResume() {
         super.onResume()
-       val myNewRef = database.getReference("Players/$uID/activeStatus")
-        myNewRef.setValue(true)
+        playerActiveStatus(true)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        playerActiveStatus(false)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.log_out_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.user_log_out -> {
+                getInstance()?.logOut()
+                d("dfsfsgfdgfdf---->", getInstance()?.isLoggedIn.toString())
+                playerActiveStatus(false)
+                findNavController().navigate(R.id.action_StarGameOnlineMultiPlayerFragment_to_LogInToOnlineGameFragment)
+                true
+            }
+
+            else -> false
+        }
+
+    private fun playerActiveStatus(isActive:Boolean){
+        val myNewRef = database.getReference("Players/$uID/activeStatus")
+        myNewRef.setValue(isActive)
     }
 
 
