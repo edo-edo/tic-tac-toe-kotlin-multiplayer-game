@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_GameModeFragment_to_LogInToOnlineGameFragment"
             app:destination="@id/LogInToOnlineGameFragment" />
+        <action
+            android:id="@+id/action_GameModeFragment_to_StarGameOnlineMultiPlayerFragment"
+            app:destination="@id/StarGameOnlineMultiPlayerFragment" />
     </fragment>
 
     <fragment
@@ -72,6 +75,11 @@
         android:label="@string/StarGameOnlineMultiPlayerFragment"
         tools:layout="@layout/fragment_star_game_online_multi_player">
 
+        <action
+            android:id="@+id/action_StarGameOnlineMultiPlayerFragment_to_LogInToOnlineGameFragment"
+            app:destination="@id/LogInToOnlineGameFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 
