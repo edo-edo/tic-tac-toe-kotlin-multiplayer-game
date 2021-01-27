@@ -45,13 +45,13 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
                                 Toast.LENGTH_LONG
                             ).show()
 
-                            it.result?.user?.uid
+                            //it.result?.user?.uid
 
                             //return@addOnCompleteListener
                         } else {
                             Toast.makeText(context, "Logged in", Toast.LENGTH_LONG).show()
                             findNavController().navigate(R.id.action_LogInToOnlineGameFragment_to_StarGameOnlineMultiPlayerFragment)
-                            it.result?.user?.uid?.let { it1 -> d("sdffsdf", it1) }
+                            it.result?.user?.uid?.let { uid -> d("sdffsdf", uid) }
                         }
 
                     }
