@@ -1,5 +1,6 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.star_game
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.Menu
@@ -17,7 +18,6 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.toEditable
 import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager.Companion.getInstance
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -71,10 +71,15 @@ class StarGameOnlineMultiPlayerFragment :
         view.findViewById<RecyclerView>(R.id.online_Players_RecyclerView).apply {
             playersAdapter = OnlinePlayersListAdapter(playersList,
                 object : ItemClickListener {
-                    override fun viewClicked(position: Int) {
-                        val onlinePlayer = playersList[position]
+                    override fun viewClicked(onlineUID: String?) {
+
 //                        playersList.removeAt(position)
 //                        playersAdapter.notifyItemRemoved(position)
+
+                        val intent = Intent(context, OnlineGameModeActivity::class.java)
+                        intent.putExtra("onlinePlayerUID", onlineUID);
+                        startActivity(intent)
+                        activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     }
 
                 })

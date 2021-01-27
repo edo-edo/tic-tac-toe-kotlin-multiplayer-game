@@ -1,16 +1,13 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.star_game
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.RootApp
-import com.google.android.material.color.MaterialColors.getColor
 
 
 class OnlinePlayersListAdapter(
@@ -48,7 +45,7 @@ class OnlinePlayersListAdapter(
 //            itemView.Category_TextView_ID.text = model.capitalize()
             //Glide.with(itemView.context).load(BASE_IMG_URL + model.path).into(itemView.moviesImageViewID)
             itemView.setOnClickListener {
-                clickingListener.viewClicked(adapterPosition)
+                clickingListener.viewClicked(model.uid)
             }
         }
     }
