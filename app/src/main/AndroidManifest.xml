@@ -26,6 +26,7 @@
             android:name=".ui.multiPlayer.MultiPlayerActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar" />
+        <activity android:name=".ui.themes.Themes" />
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.newgame
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -25,9 +27,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private lateinit var imageButtons: Array<Array<ImageButton>>
     private lateinit var youScore: TextView
     private lateinit var androidScore: TextView
+    private lateinit var sharedPref: SharedPreferences
 
     private val emptyImageButtons : MutableList<ImageButton> = ArrayList()
+    private var checkButtonList : MutableList<MutableList<String>> = ArrayList()
     private var playerCount: Int = 0
+    private var human: Int = 0
     private var playerFirstPoints: Int = 0
     private var playerSecondPoints: Int = 0
 
@@ -37,7 +42,20 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
         youScore = view.findViewById(R.id.you_score)
         androidScore = view.findViewById(R.id.android_score)
+        sharedPref = activity?.getSharedPreferences(
+            getString(R.string.themes), Context.MODE_PRIVATE)!!
 
+        val highScore = sharedPref.getString(R.string.active_logo.toString(), "tac_00")
+                when (highScore.toString()) {
+                    "tac_00" -> humanIcon(R.mipmap.tic_01)
+                    "tac_01" -> humanIcon(R.mipmap.tic_02)
+                    "tac_02" -> humanIcon(R.mipmap.tic_03)
+                    "tac_10" -> humanIcon(R.mipmap.tic_04)
+                    "tac_11" -> humanIcon(R.mipmap.tic_05)
+                    else -> {
+                        humanIcon(R.mipmap.tic_06)
+                    }
+                }
 
         view.findViewById<Button>(R.id.offline_try_again).setOnClickListener {
             clearBoard()
@@ -58,7 +76,22 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                 emptyImageButtons.add(imageButtons[row][column])
             }
         }
+        checkButtonList = MutableList(3) {
+            MutableList(3) {
+                getEmptyString()
+            }
+        }
 
+
+
+    }
+
+    private fun getEmptyString():String{
+        return " "
+    }
+
+    private fun humanIcon(logo: Int) {
+        human = logo
 
     }
 
@@ -71,17 +104,18 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             )
         )
         imageBtn.setOnClickListener {
-            onButtonClick(imageBtn)
+            onButtonClick(imageBtn,row, column)
         }
         return imageBtn
     }
 
-    private fun onButtonClick(imageBtn: ImageButton) {
+    private fun onButtonClick(imageBtn: ImageButton, row: Int, column: Int) {
         if (imageBtn.drawable != null) return
 
-            imageBtn.setImageResource(R.mipmap.toe_x)
+            imageBtn.setImageResource(human)
             emptyImageButtons.remove(imageBtn)
-            if (checkForWin()){
+            checkButtonList[row][column] = "X"
+            if (checkForWin() == "X"){
                 win(1)
                 return
             }
@@ -89,10 +123,18 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             if (emptyImageButtons.size > 0){
                 val button =  emptyImageButtons.random()
                 button.setImageResource(R.mipmap.toe_o)
+                Array(3) { row1 ->
+                    Array(3) { column1 ->
+                       if( imageButtons[row1][column1] == button){
+                           checkButtonList[row1][column1] = "O"
+                       }
+                    }
+                }
+
                 emptyImageButtons.remove(button)
             }
 
-            if (checkForWin()){
+            if (checkForWin() == "O"){
                 win(2)
                 return
             }
@@ -150,59 +192,62 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                 emptyImageButtons.add(imageButtons[row][column])
             }
         }
-
-    }
-
-
-    private fun checkForWin(): Boolean {
-        val fields = Array(3) { row ->
-            Array(3) { column ->
-                getField(imageButtons[row][column])
+        checkButtonList.clear()
+        checkButtonList =  MutableList(3) {
+            MutableList(3) {
+                getEmptyString()
             }
-
-        }
-        for (i in 0..2) {
-            if (
-                (fields[i][0] == fields[i][1]) &&
-                (fields[i][0] == fields[i][2]) &&
-                (fields[i][0] != null)
-            ) return true
-        }
-
-        for (i in 0..2) {
-            if (
-                (fields[0][i] == fields[1][i]) &&
-                (fields[0][i] == fields[2][i]) &&
-                (fields[0][i] != null)
-            ) return true
-        }
-
-        if (
-            (fields[0][0] == fields[1][1]) &&
-            (fields[0][0] == fields[2][2]) &&
-            (fields[0][0] != null)
-        ) return true
-
-        if (
-            (fields[0][2] == fields[1][1]) &&
-            (fields[0][2] == fields[2][0]) &&
-            (fields[0][2] != null)
-        ) return true
-
-        return false
-
-    }
-
-    private fun getField(imageButton: ImageButton): Char? {
-        val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
-
-        return when (drw?.constantState) {
-            drwCross?.constantState -> 'x'
-            drwZero?.constantState -> 'o'
-            else -> null
         }
 
     }
+
+
+    private fun checkForWin(): String {
+        var winner = " ";
+        Log.d("arr",checkButtonList.toString())
+
+        for (i in 0..2) {
+            if (
+                (checkButtonList[i][0] == checkButtonList[i][1]) &&
+                (checkButtonList[i][0] == checkButtonList[i][2]) &&
+                (checkButtonList[i][0] != " ")
+            ) winner = checkButtonList[i][0]
+        }
+
+        for (i in 0..2) {
+            if (
+                (checkButtonList[0][i] == checkButtonList[1][i]) &&
+                (checkButtonList[0][i] == checkButtonList[2][i]) &&
+                (checkButtonList[0][i] != " ")
+            ) winner = checkButtonList[0][i]
+        }
+
+        if (
+            (checkButtonList[0][0] == checkButtonList[1][1]) &&
+            (checkButtonList[0][0] == checkButtonList[2][2]) &&
+            (checkButtonList[0][0] != " ")
+        ) winner = checkButtonList[0][0]
+
+        if (
+            (checkButtonList[0][2] == checkButtonList[1][1]) &&
+            (checkButtonList[0][2] == checkButtonList[2][0]) &&
+            (checkButtonList[0][2] != " ")
+        ) winner = checkButtonList[0][2]
+
+        var openSpots:Int = 0
+        for (i in 0..2) {
+            for (j in 0..2) {
+                if (checkButtonList[i][j] == " ") {
+                    openSpots++
+                }
+            }
+        }
+        return if (winner == " " && openSpots == 0) {
+            "tie";
+        } else {
+            winner;
+        }
+
+    }
+
 }
