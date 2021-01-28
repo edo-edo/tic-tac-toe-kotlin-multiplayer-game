@@ -101,13 +101,12 @@ class OnlineGameModeActivity : AppCompatActivity() {
             )
         )
         imageBtn.setOnClickListener {
-            onButtonClick(myRef, imageBtn, row, column)
+            onButtonClick(imageBtn, row, column)
         }
         return imageBtn
     }
 
     private fun onButtonClick(
-        myRef: DatabaseReference,
         imageBtn: ImageButton,
         row: Int,
         column: Int
@@ -117,11 +116,54 @@ class OnlineGameModeActivity : AppCompatActivity() {
         imageBtn.setImageResource(R.mipmap.toe_o)
         checkButtonList[row][column] = human
         d("list", checkButtonList.toString())
+        myRef.setValue(checkButtonList)
         if (checkForWin()) {
             win(1)
             return
         }
-        bestMove(myRef)
+        //  bestMove(myRef)
+        // dataUpdate()
+
+        val ref = FirebaseDatabase.getInstance().getReference("Players_GameSessions/$gameSessionID")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val move: Move = Move(0, 0)
+                d("ddfsfdfEvent", snapshot.key.toString())
+                val firebaseOnlinePlayer = snapshot.value as MutableList<MutableList<String>>
+                d("ddfsxcfdfEvent", firebaseOnlinePlayer.toString())
+
+
+//                if (emptyImageButtons.size > 0) {
+//                    val button = emptyImageButtons.random()
+//                    button.setImageResource(R.mipmap.toe_o)
+//                    emptyImageButtons.remove(button)
+//                }
+
+                Array(3) { row ->
+                    Array(3) { column ->
+                        if (checkButtonList[row][column] != firebaseOnlinePlayer[row][column]) {
+                            checkButtonList = firebaseOnlinePlayer
+                            move.row = row
+                            move.column = column
+                        }
+                    }
+                }
+                imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
+                checkButtonList[move.row][move.column] = onlinePlayer
+               
+                myRef.setValue(checkButtonList)
+                if (checkForWin()) {
+                    win(1)
+                    return
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                d("dsfEvent", error.toString())
+            }
+        })
+        //online player will move
+
         if (checkForWin()) {
             win(2)
             return
@@ -311,7 +353,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 d("ddfsfdfEvent", snapshot.key.toString())
-               val sdfhsf = snapshot.value as MutableList<*>
+                val sdfhsf = snapshot.value as MutableList<*>
                 d("ddfsxcfdfEvent", sdfhsf.toString())
             }
 
