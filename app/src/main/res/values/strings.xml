@@ -55,4 +55,5 @@
     <string name="online_players">Online Players</string>
     <string name="log_out">Log out</string>
     <string name="active_logo">active_logo</string>
+    <string name="online_player">Online Player</string>
 </resources>

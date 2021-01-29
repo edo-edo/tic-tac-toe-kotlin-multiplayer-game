@@ -26,6 +26,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
     private lateinit var youScore: TextView
     private lateinit var androidScore: TextView
 
+
     private var checkButtonList: MutableList<MutableList<String>> = ArrayList()
     private var playerCount: Int = 0
     private var playerFirstPoints: Int = 0
@@ -48,6 +49,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
         var gameSessionID = "null"
         var myRef = Firebase.database.reference
         var myRefGameTurn = Firebase.database.reference
+        var myRefGameTurnPlayersToes = Firebase.database.reference
         var onlinePlayerUID = "null"
     }
 
@@ -64,11 +66,18 @@ class OnlineGameModeActivity : AppCompatActivity() {
         d("dfsdf", gameSessionID)
         myRef = database.getReference("Players_GameSessions/$gameSessionID")
         myRefGameTurn = database.getReference("Players_GameSessions_Turn/$gameSessionID")
+        myRefGameTurnPlayersToes =
+            database.getReference("Players_GameSessions_Turn_Players_Toes/$gameSessionID")
+        if (uID != null) {
+          //  setPlayersNames(findViewById(R.id.localPlayer_textView), uID)
+            setPlayersNames(findViewById(R.id.onlinePlayer_textView), onlinePlayerUID)
+        }
 
-        dataUpdate(human, 1)
+        dataUpdate()
 
         youScore = findViewById(R.id.you_score)
         androidScore = findViewById(R.id.android_score)
+
 
 
         findViewById<Button>(R.id.offline_try_again).setOnClickListener {
@@ -82,7 +91,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
 
         imageButtons = Array(3) { row ->
             Array(3) { column ->
-                initButton(row, column, myRef)
+                initButton(row, column)
             }
         }
         checkButtonList = MutableList(3) {
@@ -98,7 +107,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
         return " "
     }
 
-    private fun initButton(row: Int, column: Int, myRef: DatabaseReference): ImageButton {
+    private fun initButton(row: Int, column: Int): ImageButton {
         val imageBtn: ImageButton = findViewById(
             resources.getIdentifier(
                 "offline_button_$row$column",
@@ -132,73 +141,42 @@ class OnlineGameModeActivity : AppCompatActivity() {
                 if (uid != uID) {
                     //   findViewById<LinearLayout>(R.id.gameBoard).isClickable = false
 
+                    if (playerCount < 1) {
 
+                        onlinePlayer = "O"
+                        human = "X"
+                        val toes = mapOf(uID to human, onlinePlayerUID to onlinePlayer)
+                        myRefGameTurnPlayersToes.setValue(toes)
+                    }
+                    toeUpdate()
                     if (human == "O")
                         imageBtn.setImageResource(R.mipmap.toe_o)
                     else
                         imageBtn.setImageResource(R.mipmap.toe_x)
                     imageBtn.isClickable = false
                     checkButtonList[row][column] = human
-                    d("list", checkButtonList.toString())
+                    d("lisfht", checkButtonList.toString())
+
+
+
+
+                    if (checkForAiWin() == human) {
+                        win(1)
+                        if (checkForAiWin() == "tie")
+                            draw()
+                    }
                     myRef.setValue(checkButtonList)
-
-
-                    if (playerCount == 8) {
-                        playerCount++
-                    } else {
-                        playerCount += 2
-                    }
-
-                    if (playerCount == 9) {
-                        draw()
-                    }
-
                     myRefGameTurn.setValue(uID)
-
-                } else if (playerCount == 2) {
-                    // findViewById<LinearLayout>(R.id.gameBoard).isClickable = true
-                    onlinePlayer = "O"
-                    human = "X"
-
-//                    myRefGameTurn.setValue(onlinePlayerUID)
-//                    imageBtn.setImageResource(R.mipmap.toe_o)
-//                    imageBtn.isClickable = false
-//                    checkButtonList[row][column] = onlinePlayer
-//                    d("list", checkButtonList.toString())
-
-                    //  dataUpdate(onlinePlayer,2)
+                } else {
+                    playerCount++
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 d("dsfEvent", error.toString())
             }
         })
-
-
     }
-
-    private fun bestMove(myRef: DatabaseReference) {
-
-        val move: Move = Move(0, 0)
-        Array(3) { row ->
-            Array(3) { column ->
-                if (checkButtonList[row][column] == " ") {
-                    checkButtonList[row][column] = onlinePlayer
-                    checkButtonList[row][column] = " "
-                    move.row = row
-                    move.column = column
-
-                }
-            }
-        }
-        imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
-        checkButtonList[move.row][move.column] = onlinePlayer
-        myRef.setValue(checkButtonList)
-
-    }
-
 
     private fun win(player: Int) {
         val winner: String = if (player == 1) {
@@ -206,7 +184,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
             "You won"
         } else {
             playerSecondPoints++
-            "Winner is Android"
+            "You Are loser"
         }
         androidScore.snackBar(winner)
         Array(3) { row ->
@@ -216,6 +194,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
         }
         updateScore()
         myRef.setValue(checkButtonList)
+        //playerCount = 0
     }
 
     private fun updateScore() {
@@ -227,6 +206,11 @@ class OnlineGameModeActivity : AppCompatActivity() {
 
     private fun draw() {
         androidScore.snackBar("winner is friendship")
+        Array(3) { row ->
+            Array(3) { column ->
+                imageButtons[row][column].isClickable = false
+            }
+        }
     }
 
     private fun clearBoard() {
@@ -235,7 +219,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
                 imageButtons[i][j].setImageResource(0)
             }
         }
-        playerCount = 0
+//        playerCount = 0
         checkButtonList.clear()
         checkButtonList = MutableList(3) {
             MutableList(3) {
@@ -294,7 +278,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
     }
 
 
-    private fun dataUpdate(PlayersToe: String, player: Int) {
+    private fun dataUpdate() {
         val ref = FirebaseDatabase.getInstance().getReference("Players_GameSessions/$gameSessionID")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -336,9 +320,10 @@ class OnlineGameModeActivity : AppCompatActivity() {
                 }
 
 
-                if (checkForAiWin() == PlayersToe) {
-                    win(player)
-                    return
+                if (checkForAiWin() == onlinePlayer) {
+                    win(2)
+                    if (checkForAiWin() == "tie")
+                        draw()
                 }
             }
 
@@ -347,5 +332,48 @@ class OnlineGameModeActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun toeUpdate() {
+        val refGameTurn =
+            FirebaseDatabase.getInstance()
+                .getReference("Players_GameSessions_Turn_Players_Toes/$gameSessionID")
+        refGameTurn.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("ddfsfdfEvent", snapshot.key.toString())
+                val uid = snapshot.value as Map<String, String>
+
+                d("ddfsxcfdfEvent", uid.toString())
+
+                onlinePlayer = uid[onlinePlayerUID].toString()
+                human = uid[uID].toString()
+//                        val toes =  mapOf(uID to human, onlinePlayerUID to onlinePlayer)
+//                        myRefGameTurnPlayersToes.setValue(toes)
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                d("dsfEvent", error.toString())
+            }
+        })
+    }
+
+    fun setPlayersNames(textView: TextView, uid: String) {
+        val refGameTurn =
+            FirebaseDatabase.getInstance().getReference("Players/$uid/name")
+        refGameTurn.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                d("ddfsfdfEvent", snapshot.key.toString())
+                val name = snapshot.value.toString()
+                d("ddfsxcfdfEvent", name.toString())
+                textView.text = name
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                d("dsfEvent", error.toString())
+            }
+        })
     }
 }
