@@ -69,7 +69,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
         myRefGameTurnPlayersToes =
             database.getReference("Players_GameSessions_Turn_Players_Toes/$gameSessionID")
         if (uID != null) {
-          //  setPlayersNames(findViewById(R.id.localPlayer_textView), uID)
+            //  setPlayersNames(findViewById(R.id.localPlayer_textView), uID)
             setPlayersNames(findViewById(R.id.onlinePlayer_textView), onlinePlayerUID)
         }
 
@@ -158,18 +158,19 @@ class OnlineGameModeActivity : AppCompatActivity() {
                     d("lisfht", checkButtonList.toString())
 
 
-
-
-                    if (checkForAiWin() == human) {
-                        win(1)
-                        if (checkForAiWin() == "tie")
-                            draw()
-                    }
                     myRef.setValue(checkButtonList)
                     myRefGameTurn.setValue(uID)
                 } else {
                     playerCount++
                 }
+
+                if (checkForAiWin() == human) {
+                    win(1)
+                }
+                if (checkForAiWin() == "tie") {
+                    draw()
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -193,7 +194,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
             }
         }
         updateScore()
-        myRef.setValue(checkButtonList)
+       // myRef.setValue(checkButtonList)
         //playerCount = 0
     }
 
@@ -288,6 +289,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
                 d("ddfsxcfccdfEvent", firebaseOnlinePlayer.toString())
 
 
+
                 Array(3) { row ->
                     Array(3) { column ->
                         val firebaseToe = firebaseOnlinePlayer[row][column]
@@ -309,21 +311,17 @@ class OnlineGameModeActivity : AppCompatActivity() {
                                 playerCount++
 
                             }
-
-
-//                             else {
-////                                imageButtons[row][column].isClickable = true
-////                                checkButtonList[row][column] = " "
-//                            }
                         }
                     }
                 }
 
+                if (checkForAiWin() == "tie") {
+                    draw()
+                }
 
                 if (checkForAiWin() == onlinePlayer) {
                     win(2)
-                    if (checkForAiWin() == "tie")
-                        draw()
+
                 }
             }
 
