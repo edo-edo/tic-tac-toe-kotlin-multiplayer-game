@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.isEmailValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -29,6 +30,8 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
     }
 
     private fun View.register() {
+        findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID).statusIsEmailValid()
+
         findViewById<Button>(R.id.RegisterButtonID).setOnClickListener() {
             val email =
                 findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID).text.toString()

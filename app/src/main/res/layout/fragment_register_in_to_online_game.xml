@@ -8,20 +8,45 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/EmailRegisterActivityEditTextsID"
+        android:id="@+id/NameRegisterActivityEditTextsID"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_edittext"
-        android:hint="@string/email"
+        android:drawableStart="@drawable/ic_baseline_person_42"
+        android:drawablePadding="5dp"
+        android:hint="@string/name"
         android:inputType="text"
         android:maxLength="128"
         android:paddingStart="15sp"
         android:selectAllOnFocus="true"
         android:shadowColor="#FFFFFF"
         android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#FFFFFF"
+        tools:ignore="RtlSymmetry,TextFields" />
+
+    <EditText
+        android:id="@+id/EmailRegisterActivityEditTextsID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_baseline_email_42"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLength="64"
+        android:paddingStart="15sp"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#FFFFFF"
+        android:text=""
+
         android:textColor="#000000"
         android:textColorHint="#FFFFFF"
         tools:ignore="RtlSymmetry,TextFields" />
@@ -34,16 +59,18 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_baseline_lock_42"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:maxLength="64"
-        android:textColor="#000000"
         android:paddingStart="15sp"
         android:selectAllOnFocus="true"
         android:shadowColor="#FFFFFF"
-
         android:text=""
+
+        android:textColor="#000000"
         android:textColorHint="#FFFFFF"
         tools:ignore="RtlSymmetry,TextFields" />
 
@@ -55,6 +82,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_baseline_lock_42"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
@@ -70,11 +99,11 @@
     <Button
         android:id="@+id/RegisterButtonID"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:text="@string/register"
         android:background="@drawable/rounded_button_notes"
+        android:text="@string/register"
         android:textAllCaps="false" />
 
     <TextView

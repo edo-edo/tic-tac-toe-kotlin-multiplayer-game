@@ -60,5 +60,6 @@
     <string name="second_logo">second_logo</string>
     <string name="constraint">Already chosen by your opponent</string>
     <string name="vs">vs</string>
+    <string name="name">Name</string>
 
 </resources>
