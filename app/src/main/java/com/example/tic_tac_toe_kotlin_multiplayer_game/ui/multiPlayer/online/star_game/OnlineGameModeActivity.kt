@@ -3,7 +3,6 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.online.st
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log.d
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -113,7 +112,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
     ) {
         if (imageBtn.drawable != null) return
 
-        imageBtn.setImageResource(R.mipmap.toe_o)
+        imageBtn.setImageResource(R.mipmap.tic_06)
         checkButtonList[row][column] = human
         d("list", checkButtonList.toString())
         myRef.setValue(checkButtonList)
@@ -148,7 +147,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
                         }
                     }
                 }
-                imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
+                imageButtons[move.row][move.column].setImageResource(R.mipmap.tic_03)
                 checkButtonList[move.row][move.column] = onlinePlayer
                
                 myRef.setValue(checkButtonList)
@@ -194,7 +193,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
                 }
             }
         }
-        imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
+        imageButtons[move.row][move.column].setImageResource(R.mipmap.tic_03)
         checkButtonList[move.row][move.column] = onlinePlayer
         myRef.setValue(checkButtonList)
 
@@ -335,8 +334,8 @@ class OnlineGameModeActivity : AppCompatActivity() {
 
     private fun getField(imageButton: ImageButton): Char? {
         val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
+        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.tic_03, null)
+        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.tic_06, null)
 
         return when (drw?.constantState) {
             drwCross?.constantState -> 'X'

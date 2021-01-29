@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/first_row_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
         android:gravity="center"
         >
         <ImageButton
-            android:id="@+id/theme_button_00"
+            android:id="@+id/first_button_00"
             android:tag="tac_00"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_01"
@@ -20,7 +21,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <ImageButton
-            android:id="@+id/theme_button_01"
+            android:id="@+id/first_button_01"
             android:tag="tac_01"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_02"
@@ -28,7 +29,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <ImageButton
-            android:id="@+id/theme_button_02"
+            android:id="@+id/first_button_02"
             android:tag="tac_02"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_03"
@@ -36,14 +37,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        >
         <ImageButton
-            android:id="@+id/theme_button_10"
+            android:id="@+id/first_button_10"
             android:tag="tac_10"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_04"
@@ -51,7 +46,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <ImageButton
-            android:id="@+id/theme_button_11"
+            android:id="@+id/first_button_11"
             android:tag="tac_11"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_05"
@@ -59,7 +54,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <ImageButton
-            android:id="@+id/theme_button_12"
+            android:id="@+id/first_button_12"
             android:tag="tac_12"
             android:scaleType="centerCrop"
             android:background="@mipmap/tic_06"
@@ -68,5 +63,95 @@
             android:layout_height="70dp" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/main_row_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/first_selected_button"
+            android:scaleType="centerCrop"
+            android:layout_margin="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="45sp"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:text="@string/vs"
+            />
+        <ImageButton
+            android:id="@+id/second_selected_button"
+            android:scaleType="centerCrop"
+            android:layout_margin="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/second_row_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/second_button_00"
+            android:tag="tac_00"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_01"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/second_button_01"
+            android:tag="tac_01"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_02"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/second_button_02"
+            android:tag="tac_02"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_03"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <ImageButton
+            android:id="@+id/second_button_10"
+            android:tag="tac_10"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_04"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/second_button_11"
+            android:tag="tac_11"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_05"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <ImageButton
+            android:id="@+id/second_button_12"
+            android:tag="tac_12"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/tic_06"
+            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
