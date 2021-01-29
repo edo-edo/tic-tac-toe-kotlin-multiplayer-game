@@ -2,14 +2,12 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackbar
 import java.util.ArrayList

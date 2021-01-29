@@ -75,7 +75,6 @@
         <ImageButton
             android:id="@+id/first_selected_button"
             android:scaleType="centerCrop"
-            android:background="@mipmap/tic_01"
             android:layout_margin="20dp"
             android:layout_width="100dp"
             android:layout_height="100dp" />
@@ -90,7 +89,6 @@
         <ImageButton
             android:id="@+id/second_selected_button"
             android:scaleType="centerCrop"
-            android:background="@mipmap/tic_02"
             android:layout_margin="20dp"
             android:layout_width="100dp"
             android:layout_height="100dp" />

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -279,8 +278,8 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private fun getField(imageButton: ImageButton): Char? {
         val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
+        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.tic_03, null)
+        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.tic_06, null)
 
         return when (drw?.constantState) {
             drwCross?.constantState -> 'X'

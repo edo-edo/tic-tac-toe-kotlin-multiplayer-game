@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.example.tic_tac_toe_kotlin_multiplayer_game.RootApp
 
 
 class Themes : AppCompatActivity() {
@@ -25,8 +27,14 @@ class Themes : AppCompatActivity() {
         firstSelectedButton = findViewById(R.id.first_selected_button)
         secondSelectedButton = findViewById(R.id.second_selected_button)
 
-        firstSelectedButton.setImageResource(firstSavedLogo)
-        secondSelectedButton.setImageResource(secondSavedLogo)
+        val firstTagName = getResourceTagName(firstSavedLogo)
+        val secondTagName = getResourceTagName(secondSavedLogo)
+
+        firstSelectedButton.tag = firstTagName
+        secondSelectedButton.tag = secondTagName
+
+        firstSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, firstSavedLogo)
+        secondSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, secondSavedLogo)
 
         imageFirstButtons = Array(2) { row ->
             Array(3) { column ->
@@ -78,7 +86,7 @@ private fun initSecondButton(row: Int, column: Int): ImageButton {
         val editor = sharedPref.edit()
         if (rec != secondSelectedButton.tag){
           val recId = getResourceId(rec.toString())
-            firstSelectedButton.setImageResource(recId)
+            firstSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId)
             firstSelectedButton.tag = rec
             editor.putInt(R.string.first_logo.toString(),recId)
             editor.apply()
@@ -91,7 +99,7 @@ private fun initSecondButton(row: Int, column: Int): ImageButton {
         val editor = sharedPref.edit()
         if (firstSelectedButton.tag != rec) {
             val recId = getResourceId(rec.toString())
-            secondSelectedButton.setImageResource(recId)
+            secondSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId);
             secondSelectedButton.tag = rec
             editor.putInt(R.string.second_logo.toString(), recId)
             editor.apply()
@@ -108,6 +116,19 @@ private fun initSecondButton(row: Int, column: Int): ImageButton {
             "tac_11" -> R.mipmap.tic_05
             else -> {
                 R.mipmap.tic_06
+            }
+        }
+    }
+
+    private fun getResourceTagName(rec: Int):String {
+        return when (rec) {
+            R.mipmap.tic_01 -> "tac_00"
+            R.mipmap.tic_02 -> "tac_01"
+            R.mipmap.tic_03 -> "tac_02"
+            R.mipmap.tic_04 -> "tac_10"
+            R.mipmap.tic_05 -> "tac_11"
+            else -> {
+               "tac_12"
             }
         }
     }
