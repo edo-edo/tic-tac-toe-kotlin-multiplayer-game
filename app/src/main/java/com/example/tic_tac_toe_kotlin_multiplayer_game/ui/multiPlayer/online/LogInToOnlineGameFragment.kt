@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -30,6 +31,7 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
         val emailEditText =   findViewById<EditText>(R.id.LogInEmailEditTextsID)
         val passwordEditText = findViewById<EditText>(R.id.LogInPasswordEditTextsID)
         emailEditText.statusIsEmailValid()
+        passwordEditText.statusIsPasswordValid()
 
         findViewById<Button>(R.id.LogInButton).setOnClickListener() {
 

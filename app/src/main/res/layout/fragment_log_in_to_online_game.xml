@@ -12,8 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:drawablePadding="5dp"
-
-        android:drawableEnd="@drawable/ic_baseline_check_circle_24"
         android:drawableStart="@drawable/ic_baseline_email_42"
         android:layout_marginStart="40dp"
         android:layout_marginTop="200dp"

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.isEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -30,15 +31,18 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
     }
 
     private fun View.register() {
-        findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID).statusIsEmailValid()
+        val emailEditText = findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID)//.
+        val passwordEditText = findViewById<EditText>(R.id.PasswordRegisterActivityEditTextsID)//
+        val rePasswordEditText = findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID)
+
+        emailEditText.statusIsEmailValid()
+        passwordEditText.statusIsPasswordValid()
+        rePasswordEditText.statusIsPasswordValid()
 
         findViewById<Button>(R.id.RegisterButtonID).setOnClickListener() {
-            val email =
-                findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID).text.toString()
-            val password =
-                findViewById<EditText>(R.id.PasswordRegisterActivityEditTextsID).text.toString()
-            val rePassword =
-                findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID).text.toString()
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val rePassword = rePasswordEditText.text.toString()
 
 
             if ((password == rePassword) && (password.length >= MIN_PASS_CHARACTER_LENGTH)) {
