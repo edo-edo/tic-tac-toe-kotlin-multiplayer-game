@@ -54,8 +54,11 @@
     <string name="active_now">Active Now</string>
     <string name="online_players">Online Players</string>
     <string name="log_out">Log out</string>
+    <string name="active_logo">active_logo</string>
+    <string name="online_player">Online Player</string>
     <string name="first_logo">active_logo</string>
     <string name="second_logo">second_logo</string>
     <string name="constraint">Already chosen by your opponent</string>
     <string name="vs">vs</string>
+
 </resources>
