@@ -1,5 +1,7 @@
 package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.local
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackbar
+import java.util.ArrayList
 
 /**
  * A simple [Fragment] subclass is class which handle two player game on one phone.
@@ -17,14 +20,18 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackb
 class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
     private lateinit var fistPlayerName: String
     private lateinit var secondPlayerName: String
-
-
     private lateinit var imageButtons: Array<Array<ImageButton>>
     private lateinit var playerFirst: TextView
     private lateinit var playerSecond: TextView
     private lateinit var playerFirstScore: TextView
     private lateinit var playerSecondScore: TextView
+    private lateinit var sharedPref: SharedPreferences
 
+    private var checkButtonList : MutableList<MutableList<String>> = ArrayList()
+    private val cross = "X"
+    private val zero = "O"
+    private var firstPlayerIcon: Int = 0
+    private var secondPlayerIcon: Int = 0
     private var playerTurn: Boolean = true
     private var playerCount: Int = 0
     private var playerFirstPoints: Int = 0
@@ -36,6 +43,9 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         val bundle = this.arguments
         fistPlayerName = bundle?.getString("fistPlayerName") ?: "First"
         secondPlayerName = bundle?.getString("secondPlayerName") ?: "Second"
+        sharedPref = activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
+        firstPlayerIcon = sharedPref.getInt(R.string.first_logo.toString(), R.mipmap.tic_01)
+        secondPlayerIcon = sharedPref.getInt(R.string.second_logo.toString(), R.mipmap.tic_06)
 
         playerFirst = view.findViewById(R.id.offline_player_first)
         playerSecond = view.findViewById(R.id.offline_player_second)
@@ -59,6 +69,11 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
                 initButton(row, column, view)
             }
         }
+        checkButtonList = MutableList(3) {
+            MutableList(3) {
+                getEmptyString()
+            }
+        }
     }
 
     private fun initButton(row: Int, column: Int, view: View): ImageButton {
@@ -70,23 +85,32 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
             )
         )
         imageBtn.setOnClickListener {
-            onButtonClick(imageBtn)
+            onButtonClick(imageBtn, row, column)
         }
         return imageBtn
     }
 
-    private fun onButtonClick(imageBtn: ImageButton) {
+    private fun onButtonClick(imageBtn: ImageButton, row:Int, column: Int) {
         if (imageBtn.drawable != null) return
         if (playerTurn) {
-            imageBtn.setImageResource(R.mipmap.toe_x)
+            imageBtn.setImageResource(firstPlayerIcon)
+            checkButtonList[row][column] = cross
+            if (checkForWin() == cross){
+                win(1)
+                return
+            }
+
         } else {
-            imageBtn.setImageResource(R.mipmap.toe_o)
+            imageBtn.setImageResource(secondPlayerIcon)
+            checkButtonList[row][column] = zero
+            if (checkForWin() == zero){
+                win(2)
+                return
+            }
+
         }
         playerCount++
-
-        if (checkForWin()) {
-            if (playerTurn) win(1) else win(2)
-        } else if (playerCount == 9) {
+       if (playerCount == 9) {
             draw()
         } else {
             playerTurn = !playerTurn
@@ -130,58 +154,63 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         }
         playerCount = 0
         playerTurn = true
-
-    }
-
-
-    private fun checkForWin(): Boolean {
-        val fields = Array(3) { row ->
-            Array(3) { column ->
-                getField(imageButtons[row][column])
+        checkButtonList.clear()
+        checkButtonList =  MutableList(3) {
+            MutableList(3) {
+                getEmptyString()
             }
-
         }
-        for (i in 0..2) {
-            if (
-                (fields[i][0] == fields[i][1]) &&
-                (fields[i][0] == fields[i][2]) &&
-                (fields[i][0] != null)
-            ) return true
-        }
-
-        for (i in 0..2) {
-            if (
-                (fields[0][i] == fields[1][i]) &&
-                (fields[0][i] == fields[2][i]) &&
-                (fields[0][i] != null)
-            ) return true
-        }
-
-        if (
-            (fields[0][0] == fields[1][1]) &&
-            (fields[0][0] == fields[2][2]) &&
-            (fields[0][0] != null)
-        ) return true
-
-        if (
-            (fields[0][2] == fields[1][1]) &&
-            (fields[0][2] == fields[2][0]) &&
-            (fields[0][2] != null)
-        ) return true
-
-        return false
 
     }
 
-    private fun getField(imageButton: ImageButton): Char? {
-        val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
+    private fun getEmptyString():String{
+        return " "
+    }
 
-        return when (drw?.constantState) {
-            drwCross?.constantState -> 'x'
-            drwZero?.constantState -> 'o'
-            else -> null
+
+    private fun checkForWin(): String {
+        var winner = " "
+
+        for (i in 0..2) {
+            if (
+                (checkButtonList[i][0] == checkButtonList[i][1]) &&
+                (checkButtonList[i][0] == checkButtonList[i][2]) &&
+                (checkButtonList[i][0] != " ")
+            ) winner = checkButtonList[i][0]
+        }
+
+        for (i in 0..2) {
+            if (
+                (checkButtonList[0][i] == checkButtonList[1][i]) &&
+                (checkButtonList[0][i] == checkButtonList[2][i]) &&
+                (checkButtonList[0][i] != " ")
+            ) winner = checkButtonList[0][i]
+        }
+
+        if (
+            (checkButtonList[0][0] == checkButtonList[1][1]) &&
+            (checkButtonList[0][0] == checkButtonList[2][2]) &&
+            (checkButtonList[0][0] != " ")
+        ) winner = checkButtonList[0][0]
+
+        if (
+            (checkButtonList[0][2] == checkButtonList[1][1]) &&
+            (checkButtonList[0][2] == checkButtonList[2][0]) &&
+            (checkButtonList[0][2] != " ")
+        ) winner = checkButtonList[0][2]
+
+        var openSpots = 0
+        for (i in 0..2) {
+            for (j in 0..2) {
+                if (checkButtonList[i][j] == " ") {
+                    openSpots++
+                }
+            }
+        }
+        return if (winner == " " && openSpots == 0) {
+            "tie"
+        } else {
+            winner
         }
 
     }

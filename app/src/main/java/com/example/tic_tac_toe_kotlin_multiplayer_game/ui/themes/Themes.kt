@@ -3,14 +3,9 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.themes
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.make
 
 
 class Themes : AppCompatActivity() {
