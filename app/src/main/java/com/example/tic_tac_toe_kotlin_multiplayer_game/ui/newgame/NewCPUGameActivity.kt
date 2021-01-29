@@ -24,7 +24,7 @@ class NewCPUGameActivity : AppCompatActivity() {
     }
 }
 
-class ViewPagerAdapter(fragmentManager: FragmentManager,): FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class ViewPagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount(): Int = 2
 
     override fun getItem(position: Int): Fragment =

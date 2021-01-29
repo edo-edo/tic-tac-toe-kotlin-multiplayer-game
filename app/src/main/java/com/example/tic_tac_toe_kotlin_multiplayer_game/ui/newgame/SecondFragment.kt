@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -31,8 +30,10 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     private var playerCount: Int = 0
     private var playerFirstPoints: Int = 0
     private var playerSecondPoints: Int = 0
-    private  var ai = "X"
-    private  var human = 0
+    private val cross = "X"
+    private val zero = "O"
+    private var human: Int = 0
+    private var android: Int = 0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,21 +41,9 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
         youScore = view.findViewById(R.id.you_score)
         androidScore = view.findViewById(R.id.android_score)
-        sharedPref = activity?.getSharedPreferences(
-            getString(R.string.themes), Context.MODE_PRIVATE)!!
-
-        val highScore = sharedPref.getString(R.string.active_logo.toString(), "tac_00")
-        when (highScore.toString()) {
-            "tac_00" -> humanIcon(R.mipmap.tic_01)
-            "tac_01" -> humanIcon(R.mipmap.tic_02)
-            "tac_02" -> humanIcon(R.mipmap.tic_03)
-            "tac_10" -> humanIcon(R.mipmap.tic_04)
-            "tac_11" -> humanIcon(R.mipmap.tic_05)
-            else -> {
-                humanIcon(R.mipmap.tic_06)
-            }
-        }
-
+        sharedPref = activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
+        human = sharedPref.getInt(R.string.first_logo.toString(), R.mipmap.tic_01)
+        android = sharedPref.getInt(R.string.second_logo.toString(), R.mipmap.tic_06)
 
         view.findViewById<Button>(R.id.offline_try_again).setOnClickListener {
             clearBoard()
@@ -81,10 +70,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     private fun getEmptyString():String{
         return " "
     }
-    private fun humanIcon(logo: Int) {
-        human = logo
-
-    }
 
     private fun initButton(row: Int, column: Int, view: View): ImageButton {
         val imageBtn: ImageButton = view.findViewById(
@@ -104,13 +89,13 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         if (imageBtn.drawable != null) return
 
         imageBtn.setImageResource(human)
-        checkButtonList[row][column] = "O"
-        if (checkForWin() == "O"){
+        checkButtonList[row][column] = zero
+        if (checkForWin() == zero){
             win(1)
             return
         }
             bestMove()
-        if (checkForWin() == "X"){
+        if (checkForWin() == cross){
             win(2)
             return
         }
@@ -132,7 +117,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         Array(3) { row ->
             Array(3) { column ->
                 if (checkButtonList[row][column] == " "){
-                    checkButtonList[row][column] = ai
+                    checkButtonList[row][column] = cross
                     val score = minMax(0, false)
                     checkButtonList[row][column] = " "
                     if (score > bestScore){
@@ -143,16 +128,16 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
                 }
             }
         }
-        imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
-        checkButtonList[move.row][move.column] = ai
+        imageButtons[move.row][move.column].setImageResource(android)
+        checkButtonList[move.row][move.column] = cross
     }
 
     private fun minMax(depth: Int, isMaximizing: Boolean):Int{
         when {
-            (checkForWin() == ai && checkForWin() != " ") -> {
+            (checkForWin() == cross && checkForWin() != " ") -> {
                 return 10
             }
-            (checkForWin() == "O" && checkForWin() != " ") -> {
+            (checkForWin() == zero && checkForWin() != " ") -> {
                 return -10
             }
             (checkForWin() == "tie" && checkForWin() != " ") -> {
@@ -165,7 +150,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
                     Array(3) { row ->
                         Array(3) { column ->
                             if (checkButtonList[row][column] == " ") {
-                                checkButtonList[row][column] = ai
+                                checkButtonList[row][column] = cross
                                 val score = minMax(depth + 1, false)
                                 checkButtonList[row][column] = " "
                                 if (score > bestScore){
@@ -182,7 +167,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
                     Array(3) { row ->
                         Array(3) { column ->
                             if (checkButtonList[row][column] == " ") {
-                                checkButtonList[row][column] = "O"
+                                checkButtonList[row][column] = zero
                                 val score = minMax(depth + 1, true)
                                 checkButtonList[row][column] = " "
                                 if (score < bestScore){
@@ -293,8 +278,8 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private fun getField(imageButton: ImageButton): Char? {
         val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
+        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.tic_03, null)
+        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.tic_06, null)
 
         return when (drw?.constantState) {
             drwCross?.constantState -> 'X'
