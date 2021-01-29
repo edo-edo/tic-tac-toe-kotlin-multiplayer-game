@@ -150,9 +150,9 @@ class OnlineGameModeActivity : AppCompatActivity() {
                     }
                     toeUpdate()
                     if (human == "O")
-                        imageBtn.setImageResource(R.mipmap.toe_o)
+                        imageBtn.setImageResource(R.mipmap.tic_06)
                     else
-                        imageBtn.setImageResource(R.mipmap.toe_x)
+                        imageBtn.setImageResource(R.mipmap.tic_03)
                     imageBtn.isClickable = false
                     checkButtonList[row][column] = human
                     d("lisfht", checkButtonList.toString())
@@ -300,9 +300,9 @@ class OnlineGameModeActivity : AppCompatActivity() {
                                         "sfcvcvdsd",
                                         checkButtonList[row][column] + "<>" + firebaseToe
                                     )
-                                    imageButtons[row][column].setImageResource(R.mipmap.toe_o)
+                                    imageButtons[row][column].setImageResource(R.mipmap.tic_06)
                                 } else
-                                    imageButtons[row][column].setImageResource(R.mipmap.toe_x)
+                                    imageButtons[row][column].setImageResource(R.mipmap.tic_03)
 
                                 imageButtons[row][column].isClickable = false
                                 checkButtonList[row][column] = firebaseToe
