@@ -6,6 +6,7 @@ import android.util.Log.d
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -21,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 class OnlineGameModeActivity : AppCompatActivity() {
 
     private lateinit var imageButtons: Array<Array<ImageButton>>
+
     private lateinit var youScore: TextView
     private lateinit var androidScore: TextView
 
@@ -45,6 +47,8 @@ class OnlineGameModeActivity : AppCompatActivity() {
     companion object {
         var gameSessionID = "null"
         var myRef = Firebase.database.reference
+        var myRefGameTurn = Firebase.database.reference
+        var onlinePlayerUID = "null"
     }
 
 
@@ -54,19 +58,21 @@ class OnlineGameModeActivity : AppCompatActivity() {
 
 
         val extras = intent.extras
-        val onlinePlayerUID = extras?.getString("onlinePlayerUID", "null")
+        onlinePlayerUID = extras?.getString("onlinePlayerUID", "null").toString()
         d("dfsdf", onlinePlayerUID.toString())
         gameSessionID = (onlinePlayerUID + uID).alphabetizedSort()
         d("dfsdf", gameSessionID)
         myRef = database.getReference("Players_GameSessions/$gameSessionID")
-        dataUpdate()
+        myRefGameTurn = database.getReference("Players_GameSessions_Turn/$gameSessionID")
+
+        dataUpdate(human, 1)
 
         youScore = findViewById(R.id.you_score)
         androidScore = findViewById(R.id.android_score)
 
 
         findViewById<Button>(R.id.offline_try_again).setOnClickListener {
-            clearBoard(myRef)
+            clearBoard()
             Array(3) { row ->
                 Array(3) { column ->
                     imageButtons[row][column].isClickable = true
@@ -113,71 +119,64 @@ class OnlineGameModeActivity : AppCompatActivity() {
     ) {
         if (imageBtn.drawable != null) return
 
-        imageBtn.setImageResource(R.mipmap.toe_o)
-        checkButtonList[row][column] = human
-        d("list", checkButtonList.toString())
-        myRef.setValue(checkButtonList)
-        if (checkForWin()) {
-            win(1)
-            return
-        }
-        //  bestMove(myRef)
-        // dataUpdate()
 
-        val ref = FirebaseDatabase.getInstance().getReference("Players_GameSessions/$gameSessionID")
-        ref.addValueEventListener(object : ValueEventListener {
+        val refGameTurn =
+            FirebaseDatabase.getInstance().getReference("Players_GameSessions_Turn/$gameSessionID")
+        refGameTurn.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val move: Move = Move(0, 0)
                 d("ddfsfdfEvent", snapshot.key.toString())
-                val firebaseOnlinePlayer = snapshot.value as MutableList<MutableList<String>>
-                d("ddfsxcfdfEvent", firebaseOnlinePlayer.toString())
+                val uid = snapshot.value.toString()
+                d("ddfsxcfdfEvent", uid.toString())
 
 
-//                if (emptyImageButtons.size > 0) {
-//                    val button = emptyImageButtons.random()
-//                    button.setImageResource(R.mipmap.toe_o)
-//                    emptyImageButtons.remove(button)
-//                }
+                if (uid != uID) {
+                    //   findViewById<LinearLayout>(R.id.gameBoard).isClickable = false
 
-                Array(3) { row ->
-                    Array(3) { column ->
-                        if (checkButtonList[row][column] != firebaseOnlinePlayer[row][column]) {
-                            checkButtonList = firebaseOnlinePlayer
-                            move.row = row
-                            move.column = column
-                        }
+
+                    if (human == "O")
+                        imageBtn.setImageResource(R.mipmap.toe_o)
+                    else
+                        imageBtn.setImageResource(R.mipmap.toe_x)
+                    imageBtn.isClickable = false
+                    checkButtonList[row][column] = human
+                    d("list", checkButtonList.toString())
+                    myRef.setValue(checkButtonList)
+
+
+                    if (playerCount == 8) {
+                        playerCount++
+                    } else {
+                        playerCount += 2
                     }
+
+                    if (playerCount == 9) {
+                        draw()
+                    }
+
+                    myRefGameTurn.setValue(uID)
+
+                } else if (playerCount == 2) {
+                    // findViewById<LinearLayout>(R.id.gameBoard).isClickable = true
+                    onlinePlayer = "O"
+                    human = "X"
+
+//                    myRefGameTurn.setValue(onlinePlayerUID)
+//                    imageBtn.setImageResource(R.mipmap.toe_o)
+//                    imageBtn.isClickable = false
+//                    checkButtonList[row][column] = onlinePlayer
+//                    d("list", checkButtonList.toString())
+
+                    //  dataUpdate(onlinePlayer,2)
                 }
-                imageButtons[move.row][move.column].setImageResource(R.mipmap.toe_x)
-                checkButtonList[move.row][move.column] = onlinePlayer
-               
-                myRef.setValue(checkButtonList)
-                if (checkForWin()) {
-                    win(1)
-                    return
-                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 d("dsfEvent", error.toString())
             }
         })
-        //online player will move
 
-        if (checkForWin()) {
-            win(2)
-            return
-        }
 
-        if (playerCount == 8) {
-            playerCount++
-        } else {
-            playerCount += 2
-        }
-
-        if (playerCount == 9) {
-            draw()
-        }
     }
 
     private fun bestMove(myRef: DatabaseReference) {
@@ -216,7 +215,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
             }
         }
         updateScore()
-
+        myRef.setValue(checkButtonList)
     }
 
     private fun updateScore() {
@@ -230,7 +229,7 @@ class OnlineGameModeActivity : AppCompatActivity() {
         androidScore.snackBar("winner is friendship")
     }
 
-    private fun clearBoard(myRef: DatabaseReference) {
+    private fun clearBoard() {
         for (i in 0..2) {
             for (j in 0..2) {
                 imageButtons[i][j].setImageResource(0)
@@ -246,45 +245,6 @@ class OnlineGameModeActivity : AppCompatActivity() {
         myRef.setValue(checkButtonList)
     }
 
-
-    private fun checkForWin(): Boolean {
-        val fields = Array(3) { row ->
-            Array(3) { column ->
-                getField(imageButtons[row][column])
-            }
-
-        }
-        for (i in 0..2) {
-            if (
-                (fields[i][0] == fields[i][1]) &&
-                (fields[i][0] == fields[i][2]) &&
-                (fields[i][0] != null)
-            ) return true
-        }
-
-        for (i in 0..2) {
-            if (
-                (fields[0][i] == fields[1][i]) &&
-                (fields[0][i] == fields[2][i]) &&
-                (fields[0][i] != null)
-            ) return true
-        }
-
-        if (
-            (fields[0][0] == fields[1][1]) &&
-            (fields[0][0] == fields[2][2]) &&
-            (fields[0][0] != null)
-        ) return true
-
-        if (
-            (fields[0][2] == fields[1][1]) &&
-            (fields[0][2] == fields[2][0]) &&
-            (fields[0][2] != null)
-        ) return true
-
-        return false
-
-    }
 
     private fun checkForAiWin(): String {
         var winner = " ";
@@ -333,28 +293,53 @@ class OnlineGameModeActivity : AppCompatActivity() {
 
     }
 
-    private fun getField(imageButton: ImageButton): Char? {
-        val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.toe_x, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.toe_o, null)
 
-        return when (drw?.constantState) {
-            drwCross?.constantState -> 'X'
-            drwZero?.constantState -> '0'
-            else -> null
-        }
-
-    }
-
-
-    private fun dataUpdate() {
+    private fun dataUpdate(PlayersToe: String, player: Int) {
         val ref = FirebaseDatabase.getInstance().getReference("Players_GameSessions/$gameSessionID")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 d("ddfsfdfEvent", snapshot.key.toString())
-                val sdfhsf = snapshot.value as MutableList<*>
-                d("ddfsxcfdfEvent", sdfhsf.toString())
+                val firebaseOnlinePlayer = snapshot.value as MutableList<MutableList<String>>
+                d("ddfsxcfccdfEvent", firebaseOnlinePlayer.toString())
+
+
+                Array(3) { row ->
+                    Array(3) { column ->
+                        val firebaseToe = firebaseOnlinePlayer[row][column]
+                        if (checkButtonList[row][column] != firebaseToe && firebaseToe != " ") {
+                            // checkButtonList = firebaseOnlinePlayer
+                            d("sfdsd", checkButtonList[row][column] + "<>" + firebaseToe)
+                            if (firebaseToe == "O" || firebaseToe == "X") {
+                                if (firebaseToe == "O") {
+                                    d(
+                                        "sfcvcvdsd",
+                                        checkButtonList[row][column] + "<>" + firebaseToe
+                                    )
+                                    imageButtons[row][column].setImageResource(R.mipmap.toe_o)
+                                } else
+                                    imageButtons[row][column].setImageResource(R.mipmap.toe_x)
+
+                                imageButtons[row][column].isClickable = false
+                                checkButtonList[row][column] = firebaseToe
+                                playerCount++
+
+                            }
+
+
+//                             else {
+////                                imageButtons[row][column].isClickable = true
+////                                checkButtonList[row][column] = " "
+//                            }
+                        }
+                    }
+                }
+
+
+                if (checkForAiWin() == PlayersToe) {
+                    win(player)
+                    return
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
