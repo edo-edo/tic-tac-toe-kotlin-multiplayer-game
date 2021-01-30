@@ -83,7 +83,7 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
         }
 
     }
-    fun String.savePlayerNameToDatabase(){
+    private fun String.savePlayerNameToDatabase(){
         val database = Firebase.database
         val forUid = FirebaseAuth.getInstance().currentUser?.uid
         val myRef = database.getReference("Players/$forUid/name")
