@@ -15,6 +15,8 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.isEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -59,6 +61,7 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
                             //d("jjksdfhd","ikakooo: ${it.result?.user?.uid}")
                             Toast.makeText(context, "Registered Successfully", Toast.LENGTH_LONG)
                                 .show()
+                            findViewById<EditText>(R.id.NameRegisterActivityEditTextsID).text.toString().savePlayerNameToDatabase()
                             Handler().postDelayed({
                                 findNavController().navigate(R.id.action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment)
 
@@ -80,6 +83,13 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
         }
 
     }
+    fun String.savePlayerNameToDatabase(){
+        val database = Firebase.database
+        val forUid = FirebaseAuth.getInstance().currentUser?.uid
+        val myRef = database.getReference("Players/$forUid/name")
+        myRef.setValue(this)
+    }
+
 
     companion object {
         private const val MIN_PASS_CHARACTER_LENGTH = 8
