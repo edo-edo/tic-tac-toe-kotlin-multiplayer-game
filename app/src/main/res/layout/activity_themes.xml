@@ -82,14 +82,19 @@
         android:layout_marginEnd="10dp"
         android:gravity="center"
         android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/first_button_busy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/first_selected_button"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                android:contentDescription="@string/todo"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/first_selected_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,14 +103,18 @@
             android:textColor="@color/orange"
             android:textSize="45sp"
             android:textStyle="bold" />
-
+        <LinearLayout
+            android:id="@+id/second_button_busy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/second_selected_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:contentDescription="@string/todo"
             android:scaleType="centerCrop" />
+        </LinearLayout>
 
     </LinearLayout>
 
