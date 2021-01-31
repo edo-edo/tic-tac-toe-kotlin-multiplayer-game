@@ -39,3 +39,4 @@ fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(
 fun String.isEmailValid(): Boolean = android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.alphabetizedSort() = String(toCharArray().apply { sort() })
+
