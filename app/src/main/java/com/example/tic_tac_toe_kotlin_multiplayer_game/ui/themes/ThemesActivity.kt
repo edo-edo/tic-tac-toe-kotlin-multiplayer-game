@@ -82,12 +82,12 @@ class ThemesActivity : AppCompatActivity() {
     }
 
     private fun onFirstButtonClick(imageBtn: ImageButton) {
-        val rec = imageBtn.tag
+        val tagName = imageBtn.tag
         val editor = sharedPref.edit()
-        if (rec != secondSelectedButton.tag) {
-            val recId = getResourceId(rec.toString())
+        if (tagName != secondSelectedButton.tag && firstSelectedButton.tag != tagName) {
+            val recId = getResourceId(tagName.toString())
             firstSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId)
-            firstSelectedButton.tag = rec
+            firstSelectedButton.tag = tagName
             editor.putInt(R.string.first_logo.toString(), recId)
             editor.apply()
         }
@@ -95,12 +95,12 @@ class ThemesActivity : AppCompatActivity() {
     }
 
     private fun onSecondButtonClick(imageBtn: ImageButton) {
-        val rec = imageBtn.tag
+        val tagName = imageBtn.tag
         val editor = sharedPref.edit()
-        if (firstSelectedButton.tag != rec) {
-            val recId = getResourceId(rec.toString())
+        if (firstSelectedButton.tag != tagName && secondSelectedButton.tag != tagName ) {
+            val recId = getResourceId(tagName.toString())
             secondSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId)
-            secondSelectedButton.tag = rec
+            secondSelectedButton.tag = tagName
             editor.putInt(R.string.second_logo.toString(), recId)
             editor.apply()
         }
