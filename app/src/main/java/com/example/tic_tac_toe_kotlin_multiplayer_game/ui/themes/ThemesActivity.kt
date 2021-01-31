@@ -10,7 +10,7 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.RootApp
 
 
-class Themes : AppCompatActivity() {
+class ThemesActivity : AppCompatActivity() {
     private lateinit var imageFirstButtons: Array<Array<ImageButton>>
     private lateinit var imageSecondButtons: Array<Array<ImageButton>>
     private lateinit var firstSelectedButton: ImageButton
