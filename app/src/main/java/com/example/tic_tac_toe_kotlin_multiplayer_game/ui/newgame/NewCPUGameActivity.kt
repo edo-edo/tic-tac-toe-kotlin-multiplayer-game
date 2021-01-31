@@ -30,8 +30,8 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
 
     override fun getItem(position: Int): Fragment =
         when (position) {
-            0 -> FirstFragment()
-            else -> SecondFragment()
+            0 -> EasyGameModeFragment()
+            else -> HardGameModeFragment()
         }
 
     override fun getPageTitle(position: Int): CharSequence =

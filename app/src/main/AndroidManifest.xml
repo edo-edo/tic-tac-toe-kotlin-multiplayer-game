@@ -41,7 +41,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Tictactoekotlinmultiplayergame.NoActionBar" />
-        <activity android:name=".ui.themes.Themes" />
+        <activity android:name=".ui.themes.ThemesActivity" />
     </application>
 
 </manifest>

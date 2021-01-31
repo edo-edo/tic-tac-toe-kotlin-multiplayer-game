@@ -15,7 +15,7 @@ import java.util.*
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment(R.layout.fragment_first) {
+class EasyGameModeFragment : Fragment(R.layout.fragment_first) {
 
     private lateinit var imageButtons: Array<Array<ImageButton>>
     private lateinit var youScore: TextView

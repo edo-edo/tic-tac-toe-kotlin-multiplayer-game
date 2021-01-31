@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.newgame.FirstFragment">
+    tools:context=".ui.newgame.EasyGameModeFragment">
 
     <TableLayout
         android:layout_width="match_parent"

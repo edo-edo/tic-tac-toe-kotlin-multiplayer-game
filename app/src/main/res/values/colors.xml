@@ -6,4 +6,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
+
+
+    <color name="error_dialog_title_text_color">#e2564c</color>
+    <color name="error_dialog_ok_button_text_color">#343434</color>
+    <color name="error_dialog_description_text_color">#8e8e8e</color>
 </resources>
