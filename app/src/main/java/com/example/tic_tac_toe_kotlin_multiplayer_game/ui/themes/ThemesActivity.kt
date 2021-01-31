@@ -3,7 +3,6 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.themes
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
