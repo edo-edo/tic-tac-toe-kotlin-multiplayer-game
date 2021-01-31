@@ -24,17 +24,18 @@ class NewCPUGameActivity : AppCompatActivity() {
     }
 }
 
-class ViewPagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class ViewPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount(): Int = 2
 
     override fun getItem(position: Int): Fragment =
-        when(position) {
-            0 -> FirstFragment()
-            else -> SecondFragment()
+        when (position) {
+            0 -> EasyGameModeFragment()
+            else -> HardGameModeFragment()
         }
 
     override fun getPageTitle(position: Int): CharSequence =
-        when(position) {
+        when (position) {
             0 -> "EASY"
             else -> "HARD"
         }

@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:visibility="gone"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,13 +43,13 @@
         android:layout_marginEnd="10dp"
         android:maxLength="29"
         android:text="@string/active_now"
-        android:textSize="9sp"
         android:textColor="@color/green"
+        android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Active 2 minutes Ago"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        tools:text="Active 2 minutes Ago" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

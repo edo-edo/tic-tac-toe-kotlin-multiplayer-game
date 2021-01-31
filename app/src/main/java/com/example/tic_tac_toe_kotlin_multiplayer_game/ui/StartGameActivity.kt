@@ -7,7 +7,7 @@ import android.widget.Button
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.ui.multiPlayer.MultiPlayerActivity
 import com.example.tic_tac_toe_kotlin_multiplayer_game.ui.newgame.NewCPUGameActivity
-import com.example.tic_tac_toe_kotlin_multiplayer_game.ui.themes.Themes
+import com.example.tic_tac_toe_kotlin_multiplayer_game.ui.themes.ThemesActivity
 
 class StartGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class StartGameActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.themes_Button).apply {
             setOnClickListener {
-                val intent = Intent(context, Themes::class.java)
+                val intent = Intent(context, ThemesActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }

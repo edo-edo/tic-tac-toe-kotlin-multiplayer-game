@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="56dp"
+    android:layout_marginEnd="56dp"
+    android:background="@drawable/error_dialog_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialogTitleTextViewID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:text="@string/incorrect_request"
+        android:textColor="@color/error_dialog_title_text_color"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dialogDescriptionTextViewID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
+        android:textColor="@color/error_dialog_description_text_color"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="34dp"
+        android:background="@color/black" />
+
+    <Button
+        android:id="@+id/dialogOkButton"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/transparent"
+        android:text="@string/try_again"
+        android:textAllCaps="false"
+        android:textColor="@color/error_dialog_ok_button_text_color"
+        android:textSize="20sp" />
+</LinearLayout>

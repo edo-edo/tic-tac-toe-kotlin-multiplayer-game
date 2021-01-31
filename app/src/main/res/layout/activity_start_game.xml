@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
+    android:background="@mipmap/background_02"
     tools:context=".ui.StartGameActivity">
 
     <androidx.appcompat.widget.AppCompatButton
@@ -12,10 +12,10 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="@string/new_game"
-        android:textSize="29sp"
-        android:textColor="@color/purple"
         android:backgroundTint="@color/green"
+        android:text="@string/new_game"
+        android:textColor="@color/purple"
+        android:textSize="29sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +26,9 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:backgroundTint="@color/orange"
         android:text="@string/multiplayer"
         android:textSize="29sp"
-        android:backgroundTint="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_Game_Button" />
@@ -38,10 +38,10 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/themes"
-        android:textSize="29sp"
-        android:textColor="@color/green"
         android:backgroundTint="@color/purple"
+        android:text="@string/themes"
+        android:textColor="@color/green"
+        android:textSize="29sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/multiPlayer_Button" />

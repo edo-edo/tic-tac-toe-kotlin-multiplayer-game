@@ -12,7 +12,11 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.isEmailValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -29,13 +33,19 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
     }
 
     private fun View.register() {
-        findViewById<Button>(R.id.RegisterButtonID).setOnClickListener() {
-            val email =
-                findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID).text.toString()
-            val password =
-                findViewById<EditText>(R.id.PasswordRegisterActivityEditTextsID).text.toString()
-            val rePassword =
-                findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID).text.toString()
+        val emailEditText = findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID)//.
+        val passwordEditText = findViewById<EditText>(R.id.PasswordRegisterActivityEditTextsID)//
+        val rePasswordEditText =
+            findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID)
+
+        emailEditText.statusIsEmailValid()
+        passwordEditText.statusIsPasswordValid()
+        rePasswordEditText.statusIsPasswordValid()
+
+        findViewById<Button>(R.id.RegisterButtonID).setOnClickListener {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val rePassword = rePasswordEditText.text.toString()
 
 
             if ((password == rePassword) && (password.length >= MIN_PASS_CHARACTER_LENGTH)) {
@@ -49,9 +59,10 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
                             ).show()
                             return@addOnCompleteListener
                         } else {
-                            //d("jjksdfhd","ikakooo: ${it.result?.user?.uid}")
                             Toast.makeText(context, "Registered Successfully", Toast.LENGTH_LONG)
                                 .show()
+                            findViewById<EditText>(R.id.NameRegisterActivityEditTextsID).text.toString()
+                                .savePlayerNameToDatabase()
                             Handler().postDelayed({
                                 findNavController().navigate(R.id.action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment)
 
@@ -73,6 +84,14 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
         }
 
     }
+
+    private fun String.savePlayerNameToDatabase() {
+        val database = Firebase.database
+        val forUid = FirebaseAuth.getInstance().currentUser?.uid
+        val myRef = database.getReference("Players/$forUid/name")
+        myRef.setValue(this)
+    }
+
 
     companion object {
         private const val MIN_PASS_CHARACTER_LENGTH = 8

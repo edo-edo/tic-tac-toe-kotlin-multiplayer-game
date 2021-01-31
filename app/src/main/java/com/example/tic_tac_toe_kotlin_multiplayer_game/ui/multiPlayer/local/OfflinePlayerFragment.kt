@@ -25,7 +25,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
     private lateinit var playerSecondScore: TextView
     private lateinit var sharedPref: SharedPreferences
 
-    private var checkButtonList : MutableList<MutableList<String>> = ArrayList()
+    private var checkButtonList: MutableList<MutableList<String>> = ArrayList()
     private val cross = "X"
     private val zero = "O"
     private var firstPlayerIcon: Int = 0
@@ -41,7 +41,8 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         val bundle = this.arguments
         fistPlayerName = bundle?.getString("fistPlayerName") ?: "First"
         secondPlayerName = bundle?.getString("secondPlayerName") ?: "Second"
-        sharedPref = activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
+        sharedPref =
+            activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
         firstPlayerIcon = sharedPref.getInt(R.string.first_logo.toString(), R.mipmap.tic_01)
         secondPlayerIcon = sharedPref.getInt(R.string.second_logo.toString(), R.mipmap.tic_06)
 
@@ -88,12 +89,12 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         return imageBtn
     }
 
-    private fun onButtonClick(imageBtn: ImageButton, row:Int, column: Int) {
+    private fun onButtonClick(imageBtn: ImageButton, row: Int, column: Int) {
         if (imageBtn.drawable != null) return
         if (playerTurn) {
             imageBtn.setImageResource(firstPlayerIcon)
             checkButtonList[row][column] = cross
-            if (checkForWin() == cross){
+            if (checkForWin() == cross) {
                 win(1)
                 return
             }
@@ -101,14 +102,14 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         } else {
             imageBtn.setImageResource(secondPlayerIcon)
             checkButtonList[row][column] = zero
-            if (checkForWin() == zero){
+            if (checkForWin() == zero) {
                 win(2)
                 return
             }
 
         }
         playerCount++
-       if (playerCount == 9) {
+        if (playerCount == 9) {
             draw()
         } else {
             playerTurn = !playerTurn
@@ -116,7 +117,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
     }
 
     private fun win(player: Int) {
-        val winner:String = if (player == 1) {
+        val winner: String = if (player == 1) {
             playerFirstPoints++
             "Winner is $fistPlayerName"
         } else {
@@ -153,7 +154,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         playerCount = 0
         playerTurn = true
         checkButtonList.clear()
-        checkButtonList =  MutableList(3) {
+        checkButtonList = MutableList(3) {
             MutableList(3) {
                 getEmptyString()
             }
@@ -161,7 +162,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
 
     }
 
-    private fun getEmptyString():String{
+    private fun getEmptyString(): String {
         return " "
     }
 

@@ -1,155 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/first_row_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginStart="10dp"
         android:gravity="center"
-        >
+        android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/first_button_00"
-            android:tag="tac_00"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_01"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_01"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_00" />
+
         <ImageButton
             android:id="@+id/first_button_01"
-            android:tag="tac_01"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_02"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_02"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_01" />
+
         <ImageButton
             android:id="@+id/first_button_02"
-            android:tag="tac_02"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_03"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_03"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_02" />
 
         <ImageButton
             android:id="@+id/first_button_10"
-            android:tag="tac_10"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_04"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_04"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_10" />
+
         <ImageButton
             android:id="@+id/first_button_11"
-            android:tag="tac_11"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_05"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_05"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_11" />
+
         <ImageButton
             android:id="@+id/first_button_12"
-            android:tag="tac_12"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_06"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_06"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_12" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/main_row_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/first_selected_button"
-            android:scaleType="centerCrop"
-            android:layout_margin="20dp"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="45sp"
-            android:textColor="@color/orange"
-            android:textStyle="bold"
             android:text="@string/vs"
-            />
+            android:textColor="@color/orange"
+            android:textSize="45sp"
+            android:textStyle="bold" />
+
         <ImageButton
             android:id="@+id/second_selected_button"
-            android:scaleType="centerCrop"
-            android:layout_margin="20dp"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/second_row_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        >
+        android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/second_button_00"
-            android:tag="tac_00"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_01"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_01"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_00" />
+
         <ImageButton
             android:id="@+id/second_button_01"
-            android:tag="tac_01"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_02"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_02"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_01" />
+
         <ImageButton
             android:id="@+id/second_button_02"
-            android:tag="tac_02"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_03"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_03"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_02" />
 
         <ImageButton
             android:id="@+id/second_button_10"
-            android:tag="tac_10"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_04"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_04"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_10" />
+
         <ImageButton
             android:id="@+id/second_button_11"
-            android:tag="tac_11"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_05"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_05"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_11" />
+
         <ImageButton
             android:id="@+id/second_button_12"
-            android:tag="tac_12"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/tic_06"
-            android:layout_margin="20dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@mipmap/tic_06"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:tag="tac_12" />
 
     </LinearLayout>
 
