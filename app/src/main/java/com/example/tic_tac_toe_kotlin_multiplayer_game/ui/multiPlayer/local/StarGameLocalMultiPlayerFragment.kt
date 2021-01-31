@@ -28,7 +28,10 @@ class StarGameLocalMultiPlayerFragment : Fragment(R.layout.fragment_star_game_lo
                 bundle.putString("fistPlayerName", fistPlayerName.text.toString())
                 bundle.putString("secondPlayerName", secondPlayerName.text.toString())
 
-                findNavController().navigate(R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,bundle)
+                findNavController().navigate(
+                    R.id.action_StarGameLocalMultiPlayerFragment_to_OfflinePlayerFragment,
+                    bundle
+                )
             } else {
                 it.myCustomSnackbar("please fill out this fields", R.id.button_second)
             }

@@ -22,8 +22,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private lateinit var androidScore: TextView
     private lateinit var sharedPref: SharedPreferences
 
-    private val emptyImageButtons : MutableList<ImageButton> = ArrayList()
-    private var checkButtonList : MutableList<MutableList<String>> = ArrayList()
+    private val emptyImageButtons: MutableList<ImageButton> = ArrayList()
+    private var checkButtonList: MutableList<MutableList<String>> = ArrayList()
     private var playerCount: Int = 0
     private val cross = "X"
     private val zero = "O"
@@ -38,7 +38,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
         youScore = view.findViewById(R.id.you_score)
         androidScore = view.findViewById(R.id.android_score)
-        sharedPref = activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
+        sharedPref =
+            activity?.getSharedPreferences(getString(R.string.themes), Context.MODE_PRIVATE)!!
         human = sharedPref.getInt(R.string.first_logo.toString(), R.mipmap.tic_01)
         android = sharedPref.getInt(R.string.second_logo.toString(), R.mipmap.tic_06)
 
@@ -69,10 +70,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
 
 
-
     }
 
-    private fun getEmptyString():String{
+    private fun getEmptyString(): String {
         return " "
     }
 
@@ -86,7 +86,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             )
         )
         imageBtn.setOnClickListener {
-            onButtonClick(imageBtn,row, column)
+            onButtonClick(imageBtn, row, column)
         }
         return imageBtn
     }
@@ -94,36 +94,36 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private fun onButtonClick(imageBtn: ImageButton, row: Int, column: Int) {
         if (imageBtn.drawable != null) return
 
-            imageBtn.setImageResource(human)
-            emptyImageButtons.remove(imageBtn)
-            checkButtonList[row][column] = cross
-            if (checkForWin() == cross){
-                win(1)
-                return
-            }
+        imageBtn.setImageResource(human)
+        emptyImageButtons.remove(imageBtn)
+        checkButtonList[row][column] = cross
+        if (checkForWin() == cross) {
+            win(1)
+            return
+        }
 
-            if (emptyImageButtons.size > 0){
-                val button =  emptyImageButtons.random()
-                button.setImageResource(android)
-                Array(3) { row1 ->
-                    Array(3) { column1 ->
-                       if( imageButtons[row1][column1] == button){
-                           checkButtonList[row1][column1] = zero
-                       }
+        if (emptyImageButtons.size > 0) {
+            val button = emptyImageButtons.random()
+            button.setImageResource(android)
+            Array(3) { row1 ->
+                Array(3) { column1 ->
+                    if (imageButtons[row1][column1] == button) {
+                        checkButtonList[row1][column1] = zero
                     }
                 }
-
-                emptyImageButtons.remove(button)
             }
 
-            if (checkForWin() == zero){
-                win(2)
-                return
-            }
+            emptyImageButtons.remove(button)
+        }
 
-        if (playerCount == 8){
+        if (checkForWin() == zero) {
+            win(2)
+            return
+        }
+
+        if (playerCount == 8) {
             playerCount++
-        }else{
+        } else {
             playerCount += 2
         }
 
@@ -133,7 +133,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     }
 
     private fun win(player: Int) {
-        val winner:String = if (player == 1) {
+        val winner: String = if (player == 1) {
             playerFirstPoints++
             "You won"
         } else {
@@ -175,7 +175,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             }
         }
         checkButtonList.clear()
-        checkButtonList =  MutableList(3) {
+        checkButtonList = MutableList(3) {
             MutableList(3) {
                 getEmptyString()
             }

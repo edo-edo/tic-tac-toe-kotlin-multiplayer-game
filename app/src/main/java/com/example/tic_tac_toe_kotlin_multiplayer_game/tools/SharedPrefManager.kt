@@ -27,27 +27,6 @@ class SharedPrefManager  {
         }
 
 
-    val user: PlayerModel
-        get() {
-            val sharedPreferences: SharedPreferences =
-                RootApp.instance.getContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-            return PlayerModel(
-                sharedPreferences.getString("id", null),
-                sharedPreferences.getString("email", null),
-                sharedPreferences.getString("name", null),
-                true
-            )
-        }
-
-    fun clear() {
-        val sharedPreferences: SharedPreferences =
-            RootApp.instance.getContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("logged", false)
-        editor.clear()
-        editor.apply()
-    }
-
     fun logOut() {
         val sharedPreferences: SharedPreferences =
             RootApp.instance.getContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)

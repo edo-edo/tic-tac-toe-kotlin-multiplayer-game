@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="#000000"
+    android:gravity="center"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/LogInEmailEditTextsID"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/ic_baseline_email_42"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:autofillHints="@string/todo"
         android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_baseline_email_42"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="text"
@@ -36,10 +37,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
+        android:autofillHints="@string/todo"
         android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:drawablePadding="5dp"
         android:drawableStart="@drawable/ic_baseline_lock_42"
+        android:drawablePadding="5dp"
+        android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:maxLength="64"
@@ -57,8 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:text="@string/log_in"
         android:background="@drawable/rounded_button_notes"
+        android:text="@string/log_in"
         android:textAllCaps="false" />
 
     <TextView

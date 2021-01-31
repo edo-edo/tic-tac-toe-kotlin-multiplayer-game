@@ -4,7 +4,6 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.extensions
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log.d
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
@@ -84,12 +83,6 @@ fun EditText.statusIsPasswordValid() {
                 )
                 setCompoundDrawablesWithIntrinsicBounds(drawableStart, null, drawableEnd, null)
             }
-
         }
     })
-}
-fun EditText.setPasswordVisibility() {
-    inputType =
-        if (tag == "1") InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-    setSelection(length())
 }

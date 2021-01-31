@@ -35,13 +35,14 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
     private fun View.register() {
         val emailEditText = findViewById<EditText>(R.id.EmailRegisterActivityEditTextsID)//.
         val passwordEditText = findViewById<EditText>(R.id.PasswordRegisterActivityEditTextsID)//
-        val rePasswordEditText = findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID)
+        val rePasswordEditText =
+            findViewById<EditText>(R.id.ReenteredPasswordRegisterActivityEditTextsID)
 
         emailEditText.statusIsEmailValid()
         passwordEditText.statusIsPasswordValid()
         rePasswordEditText.statusIsPasswordValid()
 
-        findViewById<Button>(R.id.RegisterButtonID).setOnClickListener() {
+        findViewById<Button>(R.id.RegisterButtonID).setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val rePassword = rePasswordEditText.text.toString()
@@ -58,10 +59,10 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
                             ).show()
                             return@addOnCompleteListener
                         } else {
-                            //d("jjksdfhd","ikakooo: ${it.result?.user?.uid}")
                             Toast.makeText(context, "Registered Successfully", Toast.LENGTH_LONG)
                                 .show()
-                            findViewById<EditText>(R.id.NameRegisterActivityEditTextsID).text.toString().savePlayerNameToDatabase()
+                            findViewById<EditText>(R.id.NameRegisterActivityEditTextsID).text.toString()
+                                .savePlayerNameToDatabase()
                             Handler().postDelayed({
                                 findNavController().navigate(R.id.action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment)
 
@@ -83,7 +84,8 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
         }
 
     }
-    private fun String.savePlayerNameToDatabase(){
+
+    private fun String.savePlayerNameToDatabase() {
         val database = Firebase.database
         val forUid = FirebaseAuth.getInstance().currentUser?.uid
         val myRef = database.getReference("Players/$forUid/name")
