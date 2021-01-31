@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
@@ -15,6 +16,8 @@ class ThemesActivity : AppCompatActivity() {
     private lateinit var imageSecondButtons: Array<Array<ImageButton>>
     private lateinit var firstSelectedButton: ImageButton
     private lateinit var secondSelectedButton: ImageButton
+    private lateinit var firstButtonBusy: LinearLayout
+    private lateinit var secondButtonBusy: LinearLayout
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,8 @@ class ThemesActivity : AppCompatActivity() {
 
         firstSelectedButton = findViewById(R.id.first_selected_button)
         secondSelectedButton = findViewById(R.id.second_selected_button)
+        firstButtonBusy = findViewById(R.id.first_button_busy)
+        secondButtonBusy = findViewById(R.id.second_button_busy)
 
         val firstTagName = getResourceTagName(firstSavedLogo)
         val secondTagName = getResourceTagName(secondSavedLogo)
@@ -82,27 +87,35 @@ class ThemesActivity : AppCompatActivity() {
     }
 
     private fun onFirstButtonClick(imageBtn: ImageButton) {
-        val rec = imageBtn.tag
+        val tagName = imageBtn.tag
         val editor = sharedPref.edit()
-        if (rec != secondSelectedButton.tag) {
-            val recId = getResourceId(rec.toString())
+        if (tagName != secondSelectedButton.tag && firstSelectedButton.tag != tagName) {
+            secondButtonBusy.setBackgroundResource(0)
+            firstButtonBusy.setBackgroundResource(0)
+            val recId = getResourceId(tagName.toString())
             firstSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId)
-            firstSelectedButton.tag = rec
+            firstSelectedButton.tag = tagName
             editor.putInt(R.string.first_logo.toString(), recId)
             editor.apply()
+        }else if ( secondSelectedButton.tag == tagName ){
+            secondButtonBusy.background =  ContextCompat.getDrawable(RootApp.instance, R.drawable.border)
         }
 
     }
 
     private fun onSecondButtonClick(imageBtn: ImageButton) {
-        val rec = imageBtn.tag
+        val tagName = imageBtn.tag
         val editor = sharedPref.edit()
-        if (firstSelectedButton.tag != rec) {
-            val recId = getResourceId(rec.toString())
+        if (firstSelectedButton.tag != tagName && secondSelectedButton.tag != tagName ) {
+            firstButtonBusy.setBackgroundResource(0)
+            secondButtonBusy.setBackgroundResource(0)
+            val recId = getResourceId(tagName.toString())
             secondSelectedButton.background = ContextCompat.getDrawable(RootApp.instance, recId)
-            secondSelectedButton.tag = rec
+            secondSelectedButton.tag = tagName
             editor.putInt(R.string.second_logo.toString(), recId)
             editor.apply()
+        }else if ( firstSelectedButton.tag == tagName ){
+            firstButtonBusy.background =  ContextCompat.getDrawable(RootApp.instance, R.drawable.border)
         }
 
     }

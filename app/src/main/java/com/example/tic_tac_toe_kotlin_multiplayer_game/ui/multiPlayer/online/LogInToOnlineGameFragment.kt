@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.CustomTools
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -21,6 +22,9 @@ class LogInToOnlineGameFragment : Fragment(R.layout.fragment_log_in_to_online_ga
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (CustomTools.isConnected())
+            activity?.let { CustomTools.networkErrorDialog(it) }
 
         view.logIn()
     }

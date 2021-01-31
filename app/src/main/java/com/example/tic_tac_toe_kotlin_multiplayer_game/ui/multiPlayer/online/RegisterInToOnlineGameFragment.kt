@@ -14,6 +14,7 @@ import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.isEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsEmailValid
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.statusIsPasswordValid
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.CustomTools
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -26,6 +27,8 @@ class RegisterInToOnlineGameFragment : Fragment(R.layout.fragment_register_in_to
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (CustomTools.isConnected())
+            activity?.let { CustomTools.networkErrorDialog(it) }
         view.register()
         view.findViewById<TextView>(R.id.backToLogInTextViewID).setOnClickListener {
             findNavController().navigate(R.id.action_RegisterInToOnlineGameFragment_to_LogInToOnlineGameFragment)

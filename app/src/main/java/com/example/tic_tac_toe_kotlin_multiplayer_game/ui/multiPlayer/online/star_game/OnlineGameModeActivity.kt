@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.alphabetizedSort
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.CustomTools
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.checkForWinner
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -52,6 +54,8 @@ class OnlineGameModeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_online_game_mode)
 
+        if (CustomTools.isConnected())
+            CustomTools.networkErrorDialog(this)
 
         val extras = intent.extras
         onlinePlayerUID = extras?.getString("onlinePlayerUID", "null").toString()
@@ -158,10 +162,10 @@ class OnlineGameModeActivity : AppCompatActivity() {
                     playerCount++
                 }
 
-                if (checkForAiWin() == human) {
+                if (checkForWinner(checkButtonList) == human) {
                     win(1)
                 }
-                if (checkForAiWin() == "tie") {
+                if (checkForWinner(checkButtonList) == "tie") {
                     draw()
                 }
 
@@ -223,55 +227,6 @@ class OnlineGameModeActivity : AppCompatActivity() {
         myRef.setValue(checkButtonList)
     }
 
-
-    private fun checkForAiWin(): String {
-        var winner = " "
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[i][0] == checkButtonList[i][1]) &&
-                (checkButtonList[i][0] == checkButtonList[i][2]) &&
-                (checkButtonList[i][0] != " ")
-            ) winner = checkButtonList[i][0]
-        }
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[0][i] == checkButtonList[1][i]) &&
-                (checkButtonList[0][i] == checkButtonList[2][i]) &&
-                (checkButtonList[0][i] != " ")
-            ) winner = checkButtonList[0][i]
-        }
-
-        if (
-            (checkButtonList[0][0] == checkButtonList[1][1]) &&
-            (checkButtonList[0][0] == checkButtonList[2][2]) &&
-            (checkButtonList[0][0] != " ")
-        ) winner = checkButtonList[0][0]
-
-        if (
-            (checkButtonList[0][2] == checkButtonList[1][1]) &&
-            (checkButtonList[0][2] == checkButtonList[2][0]) &&
-            (checkButtonList[0][2] != " ")
-        ) winner = checkButtonList[0][2]
-
-        var openSpots = 0
-        for (i in 0..2) {
-            for (j in 0..2) {
-                if (checkButtonList[i][j] == " ") {
-                    openSpots++
-                }
-            }
-        }
-        return if (winner == " " && openSpots == 0) {
-            "tie"
-        } else {
-            winner
-        }
-
-    }
-
-
     private fun dataUpdate() {
         val ref = FirebaseDatabase.getInstance().getReference("Players_GameSessions/$gameSessionID")
         ref.addValueEventListener(object : ValueEventListener {
@@ -302,11 +257,11 @@ class OnlineGameModeActivity : AppCompatActivity() {
                     }
                 }
 
-                if (checkForAiWin() == "tie") {
+                if (checkForWinner(checkButtonList) == "tie") {
                     draw()
                 }
 
-                if (checkForAiWin() == onlinePlayer) {
+                if (checkForWinner(checkButtonList) == onlinePlayer) {
                     win(2)
 
                 }

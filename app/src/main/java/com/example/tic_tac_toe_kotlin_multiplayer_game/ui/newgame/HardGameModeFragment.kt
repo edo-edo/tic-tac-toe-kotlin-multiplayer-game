@@ -2,16 +2,15 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.ui.newgame
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackbar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.checkForWinner
 import java.util.*
 
 
@@ -19,8 +18,6 @@ import java.util.*
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class HardGameModeFragment : Fragment(R.layout.fragment_second) {
-
-
     private lateinit var imageButtons: Array<Array<ImageButton>>
     private lateinit var youScore: TextView
     private lateinit var androidScore: TextView
@@ -92,12 +89,14 @@ class HardGameModeFragment : Fragment(R.layout.fragment_second) {
 
         imageBtn.setImageResource(human)
         checkButtonList[row][column] = zero
-        if (checkForWin() == zero) {
+        if (checkForWinner(checkButtonList) == zero) {
             win(1)
             return
         }
+
         bestMove()
-        if (checkForWin() == cross) {
+
+        if (checkForWinner(checkButtonList) == cross) {
             win(2)
             return
         }
@@ -115,7 +114,7 @@ class HardGameModeFragment : Fragment(R.layout.fragment_second) {
 
     private fun bestMove() {
         var bestScore = -100
-        val move: Move = Move(0, 0)
+        val move = Move(0, 0)
         Array(3) { row ->
             Array(3) { column ->
                 if (checkButtonList[row][column] == " ") {
@@ -136,13 +135,13 @@ class HardGameModeFragment : Fragment(R.layout.fragment_second) {
 
     private fun minMax(depth: Int, isMaximizing: Boolean): Int {
         when {
-            (checkForWin() == cross && checkForWin() != " ") -> {
+            (checkForWinner(checkButtonList) == cross && checkForWinner(checkButtonList) != " ") -> {
                 return 10
             }
-            (checkForWin() == zero && checkForWin() != " ") -> {
+            (checkForWinner(checkButtonList) == zero && checkForWinner(checkButtonList) != " ") -> {
                 return -10
             }
-            (checkForWin() == "tie" && checkForWin() != " ") -> {
+            (checkForWinner(checkButtonList) == "tie" && checkForWinner(checkButtonList) != " ") -> {
                 return 0
             }
             else -> {
@@ -231,63 +230,4 @@ class HardGameModeFragment : Fragment(R.layout.fragment_second) {
         }
     }
 
-    private fun checkForWin(): String {
-        var winner = " ";
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[i][0] == checkButtonList[i][1]) &&
-                (checkButtonList[i][0] == checkButtonList[i][2]) &&
-                (checkButtonList[i][0] != " ")
-            ) winner = checkButtonList[i][0]
-        }
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[0][i] == checkButtonList[1][i]) &&
-                (checkButtonList[0][i] == checkButtonList[2][i]) &&
-                (checkButtonList[0][i] != " ")
-            ) winner = checkButtonList[0][i]
-        }
-
-        if (
-            (checkButtonList[0][0] == checkButtonList[1][1]) &&
-            (checkButtonList[0][0] == checkButtonList[2][2]) &&
-            (checkButtonList[0][0] != " ")
-        ) winner = checkButtonList[0][0]
-
-        if (
-            (checkButtonList[0][2] == checkButtonList[1][1]) &&
-            (checkButtonList[0][2] == checkButtonList[2][0]) &&
-            (checkButtonList[0][2] != " ")
-        ) winner = checkButtonList[0][2]
-
-        var openSpots: Int = 0
-        for (i in 0..2) {
-            for (j in 0..2) {
-                if (checkButtonList[i][j] == " ") {
-                    openSpots++
-                }
-            }
-        }
-        return if (winner == " " && openSpots == 0) {
-            "tie";
-        } else {
-            winner;
-        }
-
-    }
-
-    private fun getField(imageButton: ImageButton): Char? {
-        val drw: Drawable? = imageButton.drawable
-        val drwCross = ResourcesCompat.getDrawable(resources, R.mipmap.tic_03, null)
-        val drwZero = ResourcesCompat.getDrawable(resources, R.mipmap.tic_06, null)
-
-        return when (drw?.constantState) {
-            drwCross?.constantState -> 'X'
-            drwZero?.constantState -> '0'
-            else -> null
-        }
-
-    }
 }

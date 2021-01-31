@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.myCustomSnackbar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.checkForWinner
 import java.util.ArrayList
 
 /**
@@ -94,7 +95,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         if (playerTurn) {
             imageBtn.setImageResource(firstPlayerIcon)
             checkButtonList[row][column] = cross
-            if (checkForWin() == cross) {
+            if (checkForWinner(checkButtonList) == cross) {
                 win(1)
                 return
             }
@@ -102,7 +103,7 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
         } else {
             imageBtn.setImageResource(secondPlayerIcon)
             checkButtonList[row][column] = zero
-            if (checkForWin() == zero) {
+            if (checkForWinner(checkButtonList) == zero) {
                 win(2)
                 return
             }
@@ -164,53 +165,5 @@ class OfflinePlayerFragment : Fragment(R.layout.fragment_offline_player) {
 
     private fun getEmptyString(): String {
         return " "
-    }
-
-
-    private fun checkForWin(): String {
-        var winner = " "
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[i][0] == checkButtonList[i][1]) &&
-                (checkButtonList[i][0] == checkButtonList[i][2]) &&
-                (checkButtonList[i][0] != " ")
-            ) winner = checkButtonList[i][0]
-        }
-
-        for (i in 0..2) {
-            if (
-                (checkButtonList[0][i] == checkButtonList[1][i]) &&
-                (checkButtonList[0][i] == checkButtonList[2][i]) &&
-                (checkButtonList[0][i] != " ")
-            ) winner = checkButtonList[0][i]
-        }
-
-        if (
-            (checkButtonList[0][0] == checkButtonList[1][1]) &&
-            (checkButtonList[0][0] == checkButtonList[2][2]) &&
-            (checkButtonList[0][0] != " ")
-        ) winner = checkButtonList[0][0]
-
-        if (
-            (checkButtonList[0][2] == checkButtonList[1][1]) &&
-            (checkButtonList[0][2] == checkButtonList[2][0]) &&
-            (checkButtonList[0][2] != " ")
-        ) winner = checkButtonList[0][2]
-
-        var openSpots = 0
-        for (i in 0..2) {
-            for (j in 0..2) {
-                if (checkButtonList[i][j] == " ") {
-                    openSpots++
-                }
-            }
-        }
-        return if (winner == " " && openSpots == 0) {
-            "tie"
-        } else {
-            winner
-        }
-
     }
 }

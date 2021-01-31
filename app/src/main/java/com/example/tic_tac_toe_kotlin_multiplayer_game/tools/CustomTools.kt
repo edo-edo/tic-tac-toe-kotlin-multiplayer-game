@@ -4,6 +4,7 @@ package com.example.tic_tac_toe_kotlin_multiplayer_game.tools
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Handler
 import android.view.ViewGroup
 import android.view.Window
@@ -11,19 +12,17 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
+import com.example.tic_tac_toe_kotlin_multiplayer_game.RootApp
 
 
 object CustomTools {
 
-    private fun isConnected(): Boolean {
-        return try {
-            val command = "ping -c 1 google.com"
-            Runtime.getRuntime().exec(command).waitFor() == 0
-        } catch (error: Exception) {
-            false
-        }
-    }
 
+    fun isConnected(): Boolean {
+        val cm =
+            RootApp.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.isActiveNetworkMetered
+    }
 
 
     @SuppressLint("SetTextI18n")
@@ -42,7 +41,7 @@ object CustomTools {
             "Please Connect The Internet"
         dialog.findViewById<Button>(R.id.dialogOkButton).setOnClickListener {
             dialog.dismiss()
-            if (!isConnected()) {
+            if (isConnected()) {
                 Handler().postDelayed({
                     dialog.show()
                 }, 2000)
