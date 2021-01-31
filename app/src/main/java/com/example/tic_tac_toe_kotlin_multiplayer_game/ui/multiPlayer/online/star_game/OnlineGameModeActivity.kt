@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.alphabetizedSort
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.CustomTools
 import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.checkForWinner
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -53,6 +54,8 @@ class OnlineGameModeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_online_game_mode)
 
+        if (CustomTools.isConnected())
+            CustomTools.networkErrorDialog(this)
 
         val extras = intent.extras
         onlinePlayerUID = extras?.getString("onlinePlayerUID", "null").toString()

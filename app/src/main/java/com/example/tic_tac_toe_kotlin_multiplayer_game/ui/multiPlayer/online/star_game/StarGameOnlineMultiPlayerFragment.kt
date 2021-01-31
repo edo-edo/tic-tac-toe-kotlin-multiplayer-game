@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tic_tac_toe_kotlin_multiplayer_game.R
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.snackBar
 import com.example.tic_tac_toe_kotlin_multiplayer_game.extensions.toEditable
+import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.CustomTools
 import com.example.tic_tac_toe_kotlin_multiplayer_game.tools.SharedPrefManager.Companion.getInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -58,6 +59,9 @@ class StarGameOnlineMultiPlayerFragment :
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         activity?.title = ""
+
+        if (CustomTools.isConnected())
+            activity?.let { CustomTools.networkErrorDialog(it) }
 
         val onlinePlayerName = view.findViewById<EditText>(R.id.online_player_name)
         val saveButton = view.findViewById<Button>(R.id.save_button)
