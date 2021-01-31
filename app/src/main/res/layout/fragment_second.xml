@@ -13,12 +13,14 @@
         android:background="#000"
         android:orientation="vertical">
 
-        <TableRow android:padding="5dip" android:gravity="center">
+        <TableRow
+            android:gravity="center"
+            android:padding="5dip">
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center_horizontal"
                 android:text="@string/score_board"
@@ -28,51 +30,53 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/you"
-                android:textStyle="bold"
-                android:textColor="#fff"
                 android:layout_marginStart="20dp"
+                android:text="@string/you"
+                android:textColor="#fff"
                 android:textSize="20sp"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/you_score"
-                android:enabled="false"
-                android:layout_height="30dp"
                 android:layout_width="40dp"
+                android:layout_height="30dp"
                 android:layout_column="1"
-                android:textStyle="bold"
                 android:background="#fff"
-                android:text="@string/zero"
+                android:enabled="false"
                 android:padding="5dp"
-                android:textColor="#000" />
+                android:text="@string/zero"
+                android:textColor="#000"
+                android:textStyle="bold" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="20dp" android:layout_marginBottom="20dp"  >
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:textStyle="bold"
-                android:textColor="#fff"
                 android:text="@string/android"
-                android:textSize="20sp" />
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/android_score"
-                android:enabled="false"
-                android:layout_height="30dp"
                 android:layout_width="40dp"
+                android:layout_height="30dp"
                 android:layout_column="1"
-                android:textStyle="bold"
                 android:background="#fff"
-                android:text="@string/zero"
+                android:enabled="false"
                 android:padding="5dp"
-                android:textColor="#000" />
+                android:text="@string/zero"
+                android:textColor="#000"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>
@@ -83,96 +87,103 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <ImageButton
             android:id="@+id/offline_button_00"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_01"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_02"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <ImageButton
             android:id="@+id/offline_button_10"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_11"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_12"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <ImageButton
             android:id="@+id/offline_button_20"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_21"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_margin="2dp"
 
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/offline_button_22"
-            android:scaleType="centerCrop"
-            android:background="@drawable/custom_button"
-            android:layout_margin="2dp"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/custom_button"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/offline_try_again"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         android:text="@string/try_again"
-        />
+        android:textColor="@color/white" />
 
 </LinearLayout>

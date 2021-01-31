@@ -44,7 +44,7 @@
     <string name="local_game">Local Game</string>
     <string name="GameModeFragment">Game Mode Fragment</string>
     <string name="OfflinePlayerFragment">Offline Player Fragment</string>
-    <string name="title_activity_new_c_p_u_game">NewCPUGameActivity</string>
+    <string name="title_activity_new_c_p_u_game">You VS Android</string>
     <string name="you">You</string>
     <string name="android">Android</string>
     <string name="LogInToOnlineGameFragment">Log In To Online Game Fragment</string>
@@ -62,5 +62,6 @@
     <string name="vs">vs</string>
     <string name="name">Name</string>
     <string name="developed_by_edo_and_ikakooo">Developed By Edo and Ikakooo</string>
+    <string name="save">Save</string>
 
 </resources>

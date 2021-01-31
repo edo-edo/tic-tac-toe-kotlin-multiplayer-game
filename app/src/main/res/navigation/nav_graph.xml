@@ -79,7 +79,7 @@
             android:id="@+id/action_StarGameOnlineMultiPlayerFragment_to_LogInToOnlineGameFragment"
             app:destination="@id/LogInToOnlineGameFragment"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
 

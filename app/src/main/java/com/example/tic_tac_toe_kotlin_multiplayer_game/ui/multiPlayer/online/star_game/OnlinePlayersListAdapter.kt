@@ -42,8 +42,7 @@ class OnlinePlayersListAdapter(
                 activeStatusID.setTextColor(getColor(RootApp().getContext(), R.color.red))
                 "Offline"
             }
-//            itemView.Category_TextView_ID.text = model.capitalize()
-            //Glide.with(itemView.context).load(BASE_IMG_URL + model.path).into(itemView.moviesImageViewID)
+
             itemView.setOnClickListener {
                 clickingListener.viewClicked(model.uid)
             }
